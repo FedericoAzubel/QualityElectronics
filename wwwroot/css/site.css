@@ -1,22 +1,130 @@
-html {
-  font-size: 14px;
+* {
+    font-family: Ubuntu, sans-serif;
 }
 
-@media (min-width: 768px) {
-  html {
+header {
+    width: 100%;
+    height: 172px;
+
+}
+  
+.nav_container, .nav_container2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.header1 {
+    width: 1065px;
+    height: 82px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+}
+  
+.logo {
+    width: 244px;
+    height: 210px;
+    position: relative;
+    top: 15px;
+}
+    
+.buscador {
+    width: 500px;
+    height: 60px;
+    background-color: #D9D9D9;
+    position: relative;
+    display: flex;
+    border-radius: 10px;
+}
+
+.buscador input {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.buscador input:active {
+    border: none;
+}
+
+.lupa {
+    background-color: transparent;
+    border: none;
+}
+
+.lupa .lupa_img {
+    width: 42px;
+    height: 42px;
+}
+
+.usuario {
+    width: 200px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nombre_usuario {
+    width: 120px;
+    height: 20px;
     font-size: 16px;
-  }
+    margin-top: 10px;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.user_img {
+    width: 30px;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.desplegable {
+    background-color: transparent;
+    border: none;
 }
 
-body {
-  margin-bottom: 60px;
+.desplegable img {
+    width: 10px;
+}
+
+.carrito {
+    background-color: transparent;
+    border: none;
+}
+
+.carrito img {
+    width: 30px;
+}
+
+.nav_container2 {
+    background-color: #000;
+}
+
+.header2 {
+    width: 863px;
+    height: 86px;
+}
+
+.header2 ul {
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.header2 ul li {
+    list-style: none;
+
+}
+
+.header2 ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 19px;
 }
