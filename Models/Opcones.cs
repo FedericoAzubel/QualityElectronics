@@ -1,6 +1,6 @@
 public class Opciones
 {
-    int IdOpcion;
-    string Opcion;
-    int IdFiltro;
+    int IdOpcion {get; set;}
+    string Opcion {get; set;}
+    int IdFiltro {get; set;}
 }

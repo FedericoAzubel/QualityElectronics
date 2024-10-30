@@ -1,8 +1,8 @@
 public class Reseñas
 {
-    int IdProducto;
-    int IdReseña;
-    int Puntuacion;
-    string Contenido;
-    int IdUsuario;
+    int IdProducto {get; set;}
+    int IdReseña {get; set;}
+    int Puntuacion {get; set;}
+    string Contenido {get; set;}
+    int IdUsuario {get; set;}
 }

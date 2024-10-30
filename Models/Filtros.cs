@@ -1,5 +1,5 @@
 public class Filtros
 {
-    int IdFiltro;
-    string Pregunta;
+    int IdFiltro {get; set;}
+    string Pregunta {get; set;}
 }
