@@ -1,1 +1,51 @@
 ﻿
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../Images/carousel1.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../Images/carousel2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../Images/carousel3.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../Images/carousel4.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../Images/carousel5.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../Images/carousel6" class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div>
+
+<section class="IMGs_container">
+    <div class="IMGs_container2">
+        <img src="../Images/indexBIG.png" class="BIG">
+        <img src="../Images/indexTINY.png" class="MED">
+        <img src="../Images/indexMED.png" class="TINY">
+    </div>
+</section>
+
+<section class="destacados_container">
+    <div class="destacados_container2">
+        <h1 class="titulo_destacados">DESTACADOS</h1>
+        @{
+            for(int i = 0; i<4 ; i++)
+            {
+            <div class="card">
+                <img class="img_card">
+                <p class="nombre_producto">PC con Phanteks Eclipse P300A Intel Core i5-12400F</p>
+                <div class="info_card">
+                    <p class="precio_card">XXX.XXX $ ARS</p>
+                    <button>Ver más</button>
+                </div>
+            </div>
+            }
+        }
+        
+    </div>
+</section>
