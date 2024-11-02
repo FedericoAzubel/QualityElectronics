@@ -52,5 +52,15 @@ public class HomeController : Controller
      public IActionResult Ayuda()
     {
         return View();
+    } 
+    
+    public IActionResult MiCuenta()
+    {
+        return View();
+    }
+
+       public IActionResult Carrito()
+    {
+        return View();
     }
 }
