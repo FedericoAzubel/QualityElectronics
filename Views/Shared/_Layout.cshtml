@@ -13,7 +13,7 @@
     <header>
         <div class="nav_container">
             <nav class="header1">
-                <a href="Index"><img class="logo" src="../Images/Logo1.png"></a>
+                <a href='@Url.Action("Index","Home")'><img class="logo" src="../Images/Logo1.png"></a>
                 <form class="buscador">
                     <input type="search" placeholder="Buscar productos" aria-label="Search">
                     <button class="lupa" type="submit"><img src="../Images/lupa.png" class="lupa_img"></button>
@@ -29,11 +29,11 @@
         <div class="nav_container2">
             <nav class="header2">
                 <ul>
-                    <li><a href="">PRODUCTOS</a>
-                    <li><a href="">NOTEBOOKS</a>
-                    <li><a href="">PERIFÉRICOS</a>
-                    <li><a href="">QUIERO UNA COMPU</a>
-                    <li><a href="">AYUDA</a>
+                    <li><a href='@Url.Action("Catalogo","Home")'>PRODUCTOS</a></li>
+                    <li><a href='@Url.Action("Notebooks","Home")'>NOTEBOOKS</a></li>
+                    <li><a href='@Url.Action("Perifericos","Home")'>PERIFÉRICOS</a></li>
+                    <li><a href='@Url.Action("QuieroUnaCompu","Home")'>QUIERO UNA COMPU</a></li>
+                    <li><a href='@Url.Action("Ayuda","Home")'>AYUDA</a></li>
                 </ul>
             </nav>
         </div>
@@ -56,11 +56,11 @@
                     </div>
                     <nav class="footer_nav">
                         <ul>
-                            <li><a href="">Productos</a></li>
-                            <li><a href="">Notebooks</a></li>
-                            <li><a href="">Periféricos</a></li>
-                            <li><a href="">Queiro una compu</a></li>
-                            <li><a href="">Ayuda</a></li>
+                            <li><a href='@Url.Action("Catalogo","Home")'>Productos</a></li>
+                            <li><a href='@Url.Action("Notebooks","Home")'>Notebooks</a></li>
+                            <li><a href='@Url.Action("Perifericos","Home")'>Perifericos</a></li>
+                            <li><a href='@Url.Action("QuieroUnaCompu","Home")'>Quiero una Compu</a></li>
+                            <li><a href='@Url.Action("Ayuda","Home")'>Ayuda</a></li>
                         </ul>
                     </nav>
                 </div>

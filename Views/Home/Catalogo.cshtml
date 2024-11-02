@@ -1,0 +1,26 @@
+<section class="contenedor">
+    <section class="seccion">
+        <div class="nombre_sección">
+            <div class="img_nombre">
+                <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
+                <h1>Catálogo</h1>
+            </div>
+            <div class="linea"></div>
+        </div>
+        <section class="cards_container">
+            @{
+            for(int i = 0; i<16 ; i++)
+            {
+            <div class="card">
+                <img class="img_card">
+                <p class="nombre_producto">PC con Phanteks Eclipse P300A Intel Core i5-12400F</p>
+                <div class="info_card">
+                    <p class="precio_card">XXX.XXX $ ARS</p>
+                    <button>Ver más</button>
+                </div>
+            </div>
+            }
+        }
+        </section>
+    </section>
+</section>
