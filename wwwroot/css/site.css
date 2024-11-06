@@ -439,6 +439,7 @@ footer {
 .olvide-container{
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 5%;
 }
 
 .formulario h1{
@@ -457,10 +458,10 @@ footer {
 }
 .registrarse{
     margin-left: auto;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 .olvide{
-    margin-left: 10%;
+    margin-left: 5%;
 }
 
 .formulario a{
