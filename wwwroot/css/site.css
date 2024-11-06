@@ -462,16 +462,16 @@ textarea {
     border-color: #B771AE;
     box-shadow: 0 0 5px rgba(183, 113, 174, 0.5);
 }
-  
+.registrarse{
+    margin-left: auto;
+    margin-right: 10%;
+}
+.olvide{
+    margin-left: 10%;
+}
 
-.enviar_consulta {
-    width: 180px;
-    height: 36px;
-    background-color: #fff;
-    border: 4px solid #B771AE;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: bold;
+.formulario a{
+    text-decoration: none;
     color: #B771AE;
     transition: .3s;
 }
