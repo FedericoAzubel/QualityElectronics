@@ -424,4 +424,98 @@ footer {
 }
 
 
+/*Ayuda*/
 
+.accordion {
+    margin-top: 25px;
+}
+
+/* Estilo para la flecha en el estado normal (abierto) */
+.accordion-button::after {
+    font-family: "Font Awesome 5 Free"; /* Asegúrate de que FontAwesome está cargado */
+    content: '\f107'; /* Este es el ícono de la flecha hacia abajo en FontAwesome */
+    font-weight: 900; /* Establece el peso del ícono en negrita */
+    font-size: 1.25em; /* Tamaño de la flecha */
+    color: #B771AE;  /* Color de la flecha */
+    transform: rotate(0deg); /* Flecha hacia abajo por defecto */
+    transition: transform 0.2s; /* Animación suave al rotar la flecha */
+}
+
+/* Estilo para cuando el acordeón está cerrado (flecha rotada) */
+.accordion-button.collapsed::after {
+    transform: rotate(180deg); /* Rota la flecha cuando está cerrado */
+}
+
+textarea {
+    width: 1050px;
+    height: 235px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    resize: none; /* Desactiva el redimensionado */
+    margin-top: 30px;
+}
+  
+  textarea:focus {
+    outline: none;
+    border-color: #B771AE;
+    box-shadow: 0 0 5px rgba(183, 113, 174, 0.5);
+}
+  
+
+.enviar_consulta {
+    width: 180px;
+    height: 36px;
+    background-color: #fff;
+    border: 4px solid #B771AE;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #B771AE;
+    transition: .3s;
+}
+
+.enviar_consulta:hover {
+    background-color: #B771AE;
+    color: #fff;
+}
+
+.accordion-button::after {
+    font-family: "Font Awesome 5 Free";
+    content: '\f077';
+    font-weight: 900;
+    font-size: 1.25em;
+    color: #B771AE;
+    font-size: 20px;
+    background-image: unset;
+    transform:unset
+}
+
+.accordion-button:not(.collapsed)::after {background-image:unset;transform:unset;}
+
+.form-select_ayuda {
+    width: 1057px;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+.form_ayuda {
+    width: 1086px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form_ayuda p {
+    width: 100%;
+    font-size: 20px;
+    color: #B771AE;
+    padding-top: 10px;
+    padding-left: 10px;
+}
