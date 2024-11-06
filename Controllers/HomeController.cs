@@ -59,6 +59,10 @@ public class HomeController : Controller
         return View();
     }
 
+     public IActionResult InicioSesion()
+    {
+        return View();
+    }
        public IActionResult Carrito()
     {
         return View();
