@@ -423,5 +423,57 @@ footer {
     gap: 32px;
 }
 
+/*Inicio de Sesion*/
+.formulario{
+    text-align: center;
+    background-color: #222222;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 2%;
+}
 
+.formulario form{
+    display: flex;
+    flex-direction: column;
+}
+.olvide-container{
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.formulario h1{
+    color: #B771AE;
+    margin-bottom: 15%;
+    padding-top: 5%;
+}
+
+.formulario input{
+    background-color: #323232;
+    border: none;
+    margin-bottom: 3%;
+    height: 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.registrarse{
+    margin-left: auto;
+    margin-right: 10%;
+}
+.olvide{
+    margin-left: 10%;
+}
+
+.formulario a{
+    text-decoration: none;
+    color: #B771AE;
+}
+
+.formulario .enviar input{
+    background-color: #B771AE;
+    border: none;
+    margin-bottom: 3%;
+    height: 50px;
+    width: 680px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
