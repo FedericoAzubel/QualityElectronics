@@ -424,6 +424,7 @@ footer {
 }
 
 
+
 /*Ayuda*/
 
 .accordion {
@@ -520,6 +521,41 @@ textarea {
 }
 
 
+.enviar_consulta:hover {
+    background-color: #B771AE;
+    color: #fff;
+}
+
+.accordion-button::after {
+    font-family: "Font Awesome 5 Free";
+    content: '\f077';
+    font-weight: 900;
+    font-size: 1.25em;
+    color: #B771AE;
+    font-size: 20px;
+    background-image: unset;
+    transform:unset
+}
+
+.accordion-button:not(.collapsed)::after {background-image:unset;transform:unset;}
+
+.form-select_ayuda {
+    width: 1057px;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+.form_ayuda p {
+    width: 100%;
+    font-size: 20px;
+    color: #B771AE;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+
+
 /*Inicio de sesion*/
 .registrarse{
     margin-left: auto;
@@ -533,4 +569,106 @@ textarea {
     text-decoration: none;
     color: #B771AE;
     transition: .3s;
+}
+
+
+
+/*Inicio de Sesion*/
+.formulario {
+    text-align: center;
+    background-color: #222222;
+    margin-left: 34%;
+    margin-top: 3%;
+    width: 580px;
+    height: 530px;
+}
+
+.formulario form{
+    display: flex;
+    flex-direction: column;
+}
+.olvide-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+}
+
+.formulario h1{
+    color: #B771AE;
+    margin-bottom: 15%;
+    padding-top: 5%;
+}
+
+.formulario input{
+    background-color: #323232;
+    border: none;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    height: 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 2%;
+}
+.registrarse{
+    margin-left: auto;
+    margin-right: 10%;
+}
+.olvide{
+    margin-left: 10%;
+}
+
+.formulario a{
+    text-decoration: none;
+    color: #B771AE;
+    transition: .3s;
+}
+
+.formularioRegistrarse
+{
+    text-align: center;
+    background-color: #222222;
+    margin-left: 34%;
+    margin-top: 3%;
+    width: 580px;
+    height: 530px;
+}
+.formularioRegistrarse form{
+    display: flex;
+    flex-direction: column;
+}
+
+.formularioRegistrarse h1{
+    color: #B771AE;
+    margin-bottom: 7%;
+    padding-top: 5%;
+}
+
+.formularioRegistrarse input{
+    background-color: #323232;
+    border: none;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    height: 50px;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-left: 2%;
+}
+
+.text
+{
+    height: 60;
+    width: 240;
+    margin-left: 3%;
+}
+.formularioRegistrarse .enviar input{
+    background-color: #B771AE;
+    border: none;
+    margin-top: 1%;
+    height: 50px;
+    width: 510px;
+    margin-left: 5%;
+    margin-right: 5%;
+    color: #fff;
+    padding-left: 0%;
+    font-size: 130%;
 }

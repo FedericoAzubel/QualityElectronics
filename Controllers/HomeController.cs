@@ -59,6 +59,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Registrarse()
+    {
+        return View();
+    }
+
      public IActionResult InicioSesion()
     {
         return View();
