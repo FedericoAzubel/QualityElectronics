@@ -672,3 +672,15 @@ textarea {
     padding-left: 0%;
     font-size: 130%;
 }
+
+
+.accordion-button:focus{
+    border: none;
+    /* background-color: transparent; */
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0.2rem;
+}
+
+.accordion-body:focus{
+    border:none;
+    box-shadow: rgba(0,0,0,0) 0px 0px 0px 0.2rem;
+}

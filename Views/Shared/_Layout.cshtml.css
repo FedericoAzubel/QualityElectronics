@@ -1,1 +1,5 @@
-﻿
+﻿.btn:focus{
+    border: none;
+    /* background-color: transparent; */
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0.2rem;
+}
