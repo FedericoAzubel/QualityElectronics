@@ -22,8 +22,16 @@
                 <div class="usuario">
                     <a href='@Url.Action("MiCuenta","Home")'><img class="user_img" src="../Images/img_perfil.png"></a>
                     <p class="nombre_usuario">Nombre Usuario</p>
-                    <button class="desplegable"><img src="../Images/down_arrow.png"></button>
-                </div>
+                <div class="dropdown">
+                <button class="btn btn-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <span class="dropdown-toggle-icon"></span> 
+                </button>
+                <ul class="dropdown-menu">
+                     <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                     <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                </ul>
+            </div>                
+        </div>
                 <button class="carrito" onclick="window.location.href='@Url.Action("Carrito","Home")' "><img src="../Images/carrito.png"></button>
             </nav>
         </div>
