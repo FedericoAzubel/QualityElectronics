@@ -673,14 +673,10 @@ textarea {
     font-size: 130%;
 }
 
-
-.accordion-button:focus{
+.accordion-button:focus, .accordion-button:not(.collapsed){
     border: none;
     /* background-color: transparent; */
-    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0.2rem;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: rgba(255, 255, 255, 1) 0px 0px 0px 0.2rem;
 }
 
-.accordion-body:focus{
-    border:none;
-    box-shadow: rgba(0,0,0,0) 0px 0px 0px 0.2rem;
-}
