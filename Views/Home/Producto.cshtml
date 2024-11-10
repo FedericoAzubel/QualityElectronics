@@ -1,0 +1,142 @@
+<section class="contenedor">
+    <section class="producto_container">
+        <section class="seccion1">
+            <div class="imgs_prodcuto">
+                <img src="../Images/" class="img_ppal">
+                <div class="sub_imgs">   
+                    <img src="../Images/">
+                    <img src="../Images/">
+                    <img src="../Images/">
+                    <img src="../Images/">
+                </div>
+            </div>
+            
+            <div class="datos_producto">
+                <div class="info1">
+                    <p class="nombre_producto2">Notebook N14X1010 Ram 4Gb SSD 128GB Noblex</p>
+                    <div class="linea"></div>
+                    <h1 class="precio_prodcuto">1.000.000 $ARS</h1>
+                </div>
+                <button class="add_carrito">SUMAR AL CARRITO</button>
+            </div>
+        </section>
+
+        <section class="seccion2">
+            <p class="nombre_seccion">ESPECIFICACIONES<p>
+            @{for(int i=0;i<6;i++)
+            {
+                <div class="sub_seccion">
+                    <p class="nombre_sec">Nombre_seccion</p>
+                    <div class="linea"></div>
+                    <ul class="lista_datos">
+                        <li>
+                            <p class="campo">Campo</p>
+                            <p class="valor">Valor</p>
+                        </li>
+                        <li>
+                            <p class="campo">Campo</p>
+                            <p class="valor">Valor</p>
+                        </li>
+                        <li>
+                            <p class="campo">Campo</p>
+                            <p class="valor">Valor</p>
+                        </li>
+                    <ul>
+                </div>
+            }
+            }
+
+        </section>
+
+        <section class="seccion3">
+            <p class="nombre_seccion">DESCRIPCIÓN<p>
+            <div class="texto_descripcion">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </p>
+            </div>
+        </section>
+
+        <section class="seccion4">
+            <p class="nombre_seccion">RESEÑAS<p>
+            <h1 class="valoracion">X</h1>
+            <div class="estrellas">
+                @{
+                    for(int i=0;i<5;i++)
+                    {
+                        <img src="../Images/estrella_normal.png">
+                    }
+                }
+            </div>
+
+            <div class="tipo_reseña_container">
+                @{
+                    for(int i=0;i<3;i++)
+                    {
+                        <div class="tipo_reseña">
+                            <p>INTERMEDIAS</p>
+                        </div>
+                    }
+                }
+            </div>
+
+            @{
+                for(int i=0;i<5;i++)
+                {
+                    <div class="reseña">
+                        <div class="estrellas_reseña">
+                            @{
+                                for(int j=0;j<5;j++)
+                                {
+                                    <img src="../Images/estrella_normal.png">
+                                }
+                            }
+                        </div>
+                    <p class="rating_reseña">Calificacion de la reseña</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                }
+            }
+        </section>
+
+        <section class="seccion5">
+            <form>
+                <p class="puntuacion_a_dar">¿Qué puntuación le darías?</p>
+                <div class="estrellas_reseña estrellas_reseña2">
+                @{
+                    for(int j=0;j<5;j++)
+                    {
+                        <img src="../Images/estrella_normal.png">
+                    }
+                }
+                </div>
+                <p>Dinos lo que opinas</p>
+                <textarea id="comentarios" name="reseña" placeholder="Escribe tu reseña aqui" class="reseña_content"></textarea>
+                <input type="submit" value="Publicar" class="publicar">
+            </form>
+        </section>
+
+        <section class="seccion_relacionados">
+            <p class="relacionados">PRODUCTOS RELACIONADOS<p>
+            @{
+            for(int i = 0; i<4 ; i++)
+            {
+            <div class="card">
+                <img class="img_card">
+                <p class="nombre_producto">PC con Phanteks Eclipse P300A Intel Core i5-12400F</p>
+                <div class="info_card">
+                    <p class="precio_card">XXX.XXX $ ARS</p>
+                    <button>Ver más</button>
+                </div>
+            </div>
+            }
+        }
+        </section>
+    </section>
+</section>

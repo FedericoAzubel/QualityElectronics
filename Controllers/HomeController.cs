@@ -64,11 +64,17 @@ public class HomeController : Controller
         return View();
     }
 
-     public IActionResult InicioSesion()
+    public IActionResult InicioSesion()
     {
         return View();
     }
-       public IActionResult Carrito()
+
+    public IActionResult Carrito()
+    {
+        return View();
+    }
+
+    public IActionResult Producto()
     {
         return View();
     }
