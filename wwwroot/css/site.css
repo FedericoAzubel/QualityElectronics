@@ -1357,3 +1357,10 @@ p.blanco_1 {
 .fondo2 p {
     color: #fff;
 }
+
+
+.accordion .accordion-button:focus{
+    border: none!important;
+    /* background-color: transparent; */
+    box-shadow: none!important;
+}
