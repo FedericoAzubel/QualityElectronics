@@ -78,4 +78,16 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Filtros1()
+    {
+        return View();
+    }
+    public IActionResult Filtros2()
+    {
+        return View();
+    }
+    public IActionResult Filtros3()
+    {
+        return View();
+    }
 }
