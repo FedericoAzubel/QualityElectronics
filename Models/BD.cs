@@ -19,6 +19,7 @@ public class BD
         return ListaProductos;
     }
 
+    /*Este método levanta todos los prodcutos que sean Notebooks*/
     public static List<Producto>  LevantarNotebooks()
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
@@ -29,6 +30,7 @@ public class BD
         return ListaNotebooks;
     }
 
+    /*Este método levanta todos los prodcutos que sean Periféricos*/
     public static List<Producto>  LevantarPerifericos()
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
@@ -38,6 +40,4 @@ public class BD
         }
         return ListaPerifericos;
     }
-
-
 }
