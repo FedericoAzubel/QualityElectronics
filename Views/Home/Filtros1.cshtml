@@ -24,31 +24,33 @@
         </div>
 
         <section class="form_container">
-            <form class="filtros1">
+            <form action='@Url.Action("Filtros2","Home")' class="filtros1">
                 <p class="pregunta_form">1. ¿Para qué vas a usar tu computadora?</p>
                 <label>
-                    <input type="checkbox" name="opcion" value="">
+                    <input type="checkbox" name="opcion" value="1">
                     Para trabajo de oficina o escuela (Word, Excel, correo, navegar, programar, etc.)
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="checkbox" name="opcion" value="">
+                    <input type="checkbox" name="opcion" value="2">
                     Para jugar videojuegos (Fortnite, Minecraft, etc) (bajos o medianos requisitos)
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="checkbox" name="opcion" value="">
-                    Para jugar videojuegos (Red Dead, Cyberpunk, etc) (altos requisitos)
+                    <input type="checkbox" name="opcion" value="3">
+                    Para crear contenido o diseño (Photoshop, edición de videos, etc.)
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="checkbox" name="opcion" value="">
-                    Para crear contenido o diseño (Photoshop, edición de videos, etc.)
+                    <input type="checkbox" name="opcion" value="4">
+                    Para jugar videojuegos (Red Dead, Cyberpunk, etc) (altos requisitos)
                     <span class="checkmark"></span>
                 </label>
+
+                
 
                 <input type="submit" value="SIGUIENTE PREGUNTA" class="submit_filtros">
             </form>

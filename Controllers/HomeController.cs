@@ -29,31 +29,51 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-     public IActionResult Catalogo()
+    public IActionResult Catalogo()
     {
         return View();
     }
 
-     public IActionResult Notebooks()
+    public IActionResult Notebooks()
     {
         return View();
     }
 
-     public IActionResult Perifericos()
+    public IActionResult Perifericos()
     {
         return View();
     }
-    
-     public IActionResult QuieroUnaCompu()
+
+    public IActionResult Filtros1()
     {
         return View();
     }
+
+    public IActionResult Filtros2(List<int> opcion)
+    {
+        ViewBag.opcion = opcion;
+        return View();
+    }
+
+    public IActionResult Filtros3(List<int> opcion, int clas2)
+    {
+        ViewBag.opcion = opcion;
+        ViewBag.clas2 = clas2;
+        return RedirectToAction("TuCatalogo","Home");
+    }
     
-     public IActionResult Ayuda()
+    public IActionResult TuCatalogo(List<int> opciones, int clas2, int clas3)
+    {
+        BD.LevantarTuCatalogo(clas2, clas3, opciones);
+        ViewBag.ListaTuCatalogo = BD.ListaTuCatalogo;
+        return View();
+    }
+
+    public IActionResult Ayuda()
     {
         return View();
-    } 
-    
+    }
+
     public IActionResult MiCuenta()
     {
         return View();
@@ -75,18 +95,6 @@ public class HomeController : Controller
     }
 
     public IActionResult Producto()
-    {
-        return View();
-    }
-    public IActionResult Filtros1()
-    {
-        return View();
-    }
-    public IActionResult Filtros2()
-    {
-        return View();
-    }
-    public IActionResult Filtros3()
     {
         return View();
     }
