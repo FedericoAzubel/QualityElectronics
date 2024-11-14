@@ -8,5 +8,7 @@ public class Producto
     private int IdClasificacion {get; set;}
     int IdClasificacion2 {get; set;}
     int IdClasificacion3 {get; set;}
+    bool EsPeriferico {get; set;}
+    bool EsNotebook {get; set;}
 
 }
