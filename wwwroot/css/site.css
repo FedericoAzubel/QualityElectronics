@@ -40,6 +40,10 @@ header {
     align-items: center;
     position: relative;
 }
+
+.a_container {
+    /*se intento, pa despues*/
+}
   
 .logo {
     width: 244px;

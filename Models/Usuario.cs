@@ -6,5 +6,4 @@ public class Usuario
     DateTime FechaNacimiento {get; set;}
     string Email {get; set;}
     string Contraseña {get; set;}
-    string Foto {get; set;}
 }

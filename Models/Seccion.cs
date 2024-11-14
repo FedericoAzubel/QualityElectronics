@@ -1,6 +1,6 @@
-public class Clasificacion
+public class Seccion
 {
-    int IdClasificacion {get; set;}
+    int IdSeccion {get; set;}
     string Nombre {get; set;}
     int IdProducto {get; set;}
 }

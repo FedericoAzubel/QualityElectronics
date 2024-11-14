@@ -6,4 +6,7 @@ public class Producto
     string Foto {get; set;}
     string Descripcion {get; set;}
     private int IdClasificacion {get; set;}
+    int IdClasificacion2 {get; set;}
+    int IdClasificacion3 {get; set;}
+
 }
