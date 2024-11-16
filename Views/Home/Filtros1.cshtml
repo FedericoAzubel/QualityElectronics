@@ -24,7 +24,7 @@
         </div>
 
         <section class="form_container">
-            <form action='@Url.Action("Filtros2","Home")' class="filtros1">
+            <form action='@Url.Action("Filtros2","Home")' method="post" class="filtros1">
                 <p class="pregunta_form">1. ¿Para qué vas a usar tu computadora?</p>
                 <label>
                     <input type="checkbox" name="opcion" value="1">
@@ -49,8 +49,6 @@
                     Para jugar videojuegos (Red Dead, Cyberpunk, etc) (altos requisitos)
                     <span class="checkmark"></span>
                 </label>
-
-                
 
                 <input type="submit" value="SIGUIENTE PREGUNTA" class="submit_filtros">
             </form>

@@ -24,28 +24,25 @@
         </div>
 
         <section class="form_container">
-            <form action='@Url.Action("TuCatalogo","Home")' class="filtros1">
+            <form action='@Url.Action("TuCatalogo","Home")' method="post" class="filtros1">
                 <p class="pregunta_form">3. ¿Considerarías la portabilidad como un aspecto esencial a la hora de elegir tu dispositivo?</p>
                 <label>
-                    <input type="radio" name="clas3" value="">
+                    <input type="radio" name="clas3" value="" required>
                     Definitivamente
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="radio" name="clas3" value="">
+                    <input type="radio" name="clas3" value="" required>
                     Para nada
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="radio" name="clas3" value="">
+                    <input type="radio" name="clas3" value="" required>
                     Masomenos
                     <span class="checkmark"></span>
                 </label>
-
-                <input type="hidden" value="@ViewBag.opcion">
-                <input type="hidden" value="@ViewBag.clas2">
                 
                 <input type="submit" value="TERMINAR" class="submit_filtros">
             </form>

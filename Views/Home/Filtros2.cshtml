@@ -23,27 +23,26 @@
         </div>
 
         <section class="form_container">
-            <form action='@Url.Action("Filtros3","Home")' class="filtros1">
+            <form action='@Url.Action("Filtros3","Home")' method="post" class="filtros1">
                 <p class="pregunta_form">2. ¿Cómo es tu presupuesto?</p>
                 <label>
-                    <input type="radio" name="clas2" value="1">
+                    <input type="radio" name="clas2" value="1" required>
                     Económico (Lo más barato posible, pero que funcione bien)
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="radio" name="clas2" value="2">
+                    <input type="radio" name="clas2" value="2" required>
                     Medio (Un buen balance entre precio y rendimiento)
                     <span class="checkmark"></span>
                 </label>
 
                 <label>
-                    <input type="radio" name="clas2" value="3">
+                    <input type="radio" name="clas2" value="3" required>
                     Elevado (Lo mejor que puedas comprar)
                     <span class="checkmark"></span>
                 </label>
                 
-                <input type="hidden" name="opcion" value="@ViewBag.opcion">
                 <input type="submit" value="SIGUIENTE PREGUNTA" class="submit_filtros">
             </form>
 

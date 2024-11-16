@@ -1,6 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using QualityElectronics.Models;
+using System.Text;
+using Newtonsoft.Json;
+
 
 namespace QualityElectronics.Controllers;
 
@@ -43,30 +46,39 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    
     public IActionResult Filtros1()
     {
+        HttpContext.Session.Remove("ListaOpcion");
+        HttpContext.Session.Remove("class2");
         return View();
     }
 
+    [HttpPost]
     public IActionResult Filtros2(List<int> opcion)
     {
-        ViewBag.opcion = opcion;
+        HttpContext.Session.SetString("ListaOpcion", JsonConvert.SerializeObject(opcion));
         return View();
     }
 
-    public IActionResult Filtros3(List<int> opcion, int clas2)
+    [HttpPost]
+    public IActionResult Filtros3(int clas2)
     {
-        ViewBag.opcion = opcion;
-        ViewBag.clas2 = clas2;
-        return RedirectToAction("TuCatalogo","Home");
+        HttpContext.Session.SetString("class2", clas2.ToString());
+        return View();
     }
     
-    public IActionResult TuCatalogo(List<int> opciones, int clas2, int clas3)
+    public IActionResult TuCatalogo(int clas3)
     {
-        BD.LevantarTuCatalogo(clas2, clas3, opciones);
+        string opcionString = HttpContext.Session.GetString("ListaOpcion");
+        List<int> opcion = JsonConvert.DeserializeObject<List<int>>(opcionString);
+
+        string clas2String = HttpContext.Session.GetString("class2");
+        int clas2 = int.Parse(clas2String); // Convierte el string a int
+
+        BD.LevantarTuCatalogo(clas2, clas3, opcion);
         ViewBag.ListaTuCatalogo = BD.ListaTuCatalogo;
-        return View();
+        return View("Catalogo");
     }
 
     public IActionResult Ayuda()
