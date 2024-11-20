@@ -1,14 +1,13 @@
 <div class="formulario">
     <form method="post" action = '@Url.Action("Index","Home")'>
         <h1>INICIAR SESIÓN</h1>
-        <input type= "email" placeholder="Usuario / Email">
+        <input type= "email" placeholder="Email">
         <input type= "password" placeholder="Contraseña">
         <div class = "olvide-container">
-            <a class = "olvide" href=> Olvidé la contraseña</a>
             <a class = "registrarse" href= '@Url.Action("Registrarse","Home")'> Registrarse</a>
         </div>
         <div class="enviarinicio">
-            <input type= "submit" >
+            <input type="submit">
         </div>
     </form>
 </div>
