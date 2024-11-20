@@ -59,4 +59,15 @@ public class BD
             ListaTuCatalogo = db.Query<Producto>(sql, new{clasi1 = clas1, clasi2 = clas2, clasi3 = clas3}).ToList();
         }
     }
+
+    public static Usuario LevantarUsuarioPorMail(string email)
+    {
+        Usuario user;
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Usuario WHERE Email = @pemail";
+            user = db.QueryFirstOrDefault<Usuario>(sql, new {pemail = email});
+        }
+        return user;
+    }
 }

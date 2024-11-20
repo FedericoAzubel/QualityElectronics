@@ -1,7 +1,7 @@
 using System.Text.Json;
 
 [Serializable]
-public class Usuario(string email, string password)
+public class Usuario
 {
     public int IdUsuario {get; set;}
     public string Nombre {get; set;}
@@ -9,6 +9,14 @@ public class Usuario(string email, string password)
     public DateTime FechaNacimiento {get; set;}
     public string? Email {get; set;}
     public string? Contraseña {get; set;}
+
+    public Usuario() {}
+
+    public Usuario(string email, string contrsena) {
+        Email = email;
+        Contraseña = contrsena;
+    }
+
 
     public override string ToString()
     {

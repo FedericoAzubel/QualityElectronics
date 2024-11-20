@@ -25,13 +25,15 @@ public class AuthController : Controller
     [HttpPost]
     public IActionResult VerificarLogin(string email, string password)
     {
-        if (email == "admin@gmail.com" && password == "admin")
+        Usuario user = BD.LevantarUsuarioPorMail(email);
+        if (email == "fede@gmail.com"/*user.Email*/ && password == "12345"/*user.Contraseña*/)
         {
             HttpContext.Session.SetString("user", new Usuario(email, password).ToString());
             return RedirectToAction("Index", "Home");
         }
         else
         {
+            ViewBag.Bool = false;
             ViewBag.Error = "Email o contraseña incorrectos.";
             return View("Login");
         }
