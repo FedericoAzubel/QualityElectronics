@@ -8,13 +8,13 @@ public class Usuario
     public string Apellido {get; set;}
     public DateTime FechaNacimiento {get; set;}
     public string? Email {get; set;}
-    public string? Contraseña {get; set;}
+    public string? Contrasena {get; set;}
 
     public Usuario() {}
 
     public Usuario(string email, string contrsena) {
         Email = email;
-        Contraseña = contrsena;
+        Contrasena = contrsena;
     }
 
 

@@ -18,6 +18,10 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        ViewBag.nombreUsuario =  usuario.Nombre;
+        ViewBag.apellidoUsuario = usuario.Apellido;
         return View();
     }
 

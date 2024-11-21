@@ -1368,3 +1368,7 @@ p.blanco_1 {
     /* background-color: transparent; */
     box-shadow: none!important;
 }
+
+.displayNone {
+    display: none;
+}

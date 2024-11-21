@@ -26,9 +26,13 @@ public class AuthController : Controller
     public IActionResult VerificarLogin(string email, string password)
     {
         Usuario user = BD.LevantarUsuarioPorMail(email);
-        if (email == "fede@gmail.com"/*user.Email*/ && password == "12345"/*user.Contraseña*/)
+        if(user == null)
         {
-            HttpContext.Session.SetString("user", new Usuario(email, password).ToString());
+                return RedirectToAction("Login");
+        }
+        else if (user.Email == email && user.Contrasena == password /*user.Contraseña*/)
+        {
+            HttpContext.Session.SetString("user", user.ToString());
             return RedirectToAction("Index", "Home");
         }
         else
