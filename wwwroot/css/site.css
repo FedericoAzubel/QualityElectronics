@@ -1372,3 +1372,103 @@ p.blanco_1 {
 .displayNone {
     display: none;
 }
+
+/*Registrarse*/
+
+.signUp_form {
+    width: 580px;
+    min-height: 570px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #222222;
+    margin-top: 50px;
+}
+
+.signUp_title {
+    width: 100%;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #B771AE;
+    font-weight: bold;
+}
+
+.signUp_inputs {
+    width: 510px;
+    min-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24.5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.signUp_submit {
+    width: 510px;
+    height: 60px;
+    background-color: #B771AE;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.name, .surname, .password, .password2 {
+    width: 240px;
+    height: 60px;
+    background-color: #323232;
+    color: #737373;
+    padding-left: 10px;
+    border: none;
+}
+
+.mail, .phone, .password_login {
+    width: 510px;
+    height: 60px;
+    background-color: #323232;
+    color: #737373;
+    padding-left: 10px;
+    border: none;
+}
+
+.input_border:focus {
+    border-bottom: 5px solid #B771AE;
+    outline: none;
+}
+
+.alert-danger {
+    height: 60px;
+    background-color: #700;
+    color: #fff;
+}
+/*Login*/
+
+.signIn_inputs {
+    align-self: flex-end;
+    margin-bottom: 30px;
+    width: 510px;
+    height: 311px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inputs_a {
+    width: 510px;
+    height: 206px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.inputs_a a {
+    justify-self: flex-end;
+    color: #B771AE;
+    font-size: 15px;
+    text-decoration: none;
+}

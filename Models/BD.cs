@@ -7,7 +7,7 @@ public class BD
     public static List<Producto> ListaNotebooks = new List<Producto>();
     public static List<Producto> ListaPerifericos = new List<Producto>();
     public static List<Producto> ListaTuCatalogo = new List<Producto>();
-    private static string _connectionString = @"Server=localhost;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -69,5 +69,25 @@ public class BD
             user = db.QueryFirstOrDefault<Usuario>(sql, new {pemail = email});
         }
         return user;
+    }
+
+    public static void IngresarUsuario(string nombre, string apellido, string email, int tel, string contrasena)
+    {
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO Usuario(Nombre, Apellido, Email, Contrasena, Telefono) VALUES (@pNombre, @pApellido, @pEmail, @pContrasena, @pTelefono)";
+            db.Execute(sql, new{pNombre = nombre, pApellido = apellido, pEmail = email, pContrasena = contrasena, pTelefono = tel});
+        }
+    }
+
+    public static List<Usuario>  LevantarUsuarios()
+    {
+        List<Usuario> ListaUsers;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Usuario";
+            ListaUsers = db.Query<Usuario>(sql).ToList();
+        }
+        return ListaUsers;
     }
 }
