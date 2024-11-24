@@ -29,7 +29,7 @@ public class AuthController : Controller
         Usuario user = BD.LevantarUsuarioPorMail(email);
         if(user == null)
         {
-            ViewBag.Error = "Email o contraseña incorrectos.";
+            ViewBag.Error = "No hay una cuenta asociada al mail ingresado";
             return RedirectToAction("Login");
         }
         else if (user.Email == email && user.Contrasena == password)

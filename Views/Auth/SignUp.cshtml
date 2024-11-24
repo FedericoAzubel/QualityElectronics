@@ -1,6 +1,10 @@
-<section class="contenedor">
-    
-
+<section class="contenedorAnimado">
+    @{
+        for(int i = 0; i < 259; i++)
+        {
+        <span class="cubo"></span>
+        }
+    }
     <form action='@Url.Action("VerificarSignUp", "Auth")' method="post" class="signUp_form">
         <h1 class="signUp_title">REGISTRARSE</h1>
         @if(ViewBag.Error != null)
