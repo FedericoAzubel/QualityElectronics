@@ -1,14 +1,14 @@
 public class Producto
 {
-    int IdProducto {get; set;}
-    string Nombre {get; set;}
-    double Precio {get; set;}
-    string Foto {get; set;}
-    string Descripcion {get; set;}
+    public int IdProducto {get; set;}
+    public string Nombre {get; set;}
+    public double Precio {get; set;}
+    public string Foto {get; set;}
+    public string Descripcion {get; set;}
     private int IdClasificacion {get; set;}
-    int IdClasificacion2 {get; set;}
-    int IdClasificacion3 {get; set;}
-    bool EsPeriferico {get; set;}
-    bool EsNotebook {get; set;}
+    public int IdClasificacion2 {get; set;}
+    public int IdClasificacion3 {get; set;}
+    public bool EsPeriferico {get; set;}
+    public bool EsNotebook {get; set;}
 
 }
