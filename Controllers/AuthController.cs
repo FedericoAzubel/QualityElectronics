@@ -2,16 +2,20 @@ using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using QualityElectronics.services;
 
 namespace test_session.Controllers;
 
 public class AuthController : Controller
 {
     private readonly ILogger<AuthController> _logger;
+    private readonly GlobalVariableService _globalVariableService;
 
-    public AuthController(ILogger<AuthController> logger)
+    public AuthController(ILogger<AuthController> logger, GlobalVariableService nombreUsuario)
     {
         _logger = logger;
+        _globalVariableService = nombreUsuario;
+
     }
 
     public IActionResult Login()
@@ -47,6 +51,7 @@ public class AuthController : Controller
     public IActionResult Logout()
     {
         HttpContext.Session.Remove("user");
+        _globalVariableService.nombreUsuario = "Inicie sesión";
         return RedirectToAction("Login");
     }
 

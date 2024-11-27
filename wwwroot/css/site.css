@@ -1547,13 +1547,9 @@ body
     width: 12px;
 }
 
-::-webkit-scrollbar-track{
-    background:#000;
-}
 
 ::-webkit-scrollbar-thumb{
 	background: #B771AE;
     border-radius: 10px;
-    border:3px solid #000;
 }
 

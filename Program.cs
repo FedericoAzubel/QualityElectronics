@@ -9,7 +9,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Seguridad: el cliente no puede acceder a las cookies desde JS
     options.Cookie.IsEssential = true; // Necesario para que funcione sin consentimiento del usuario
 });
-
+builder.Services.AddSingleton<QualityElectronics.services.GlobalVariableService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

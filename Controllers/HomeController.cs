@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using QualityElectronics.Models;
 using System.Text;
 using Newtonsoft.Json;
+using QualityElectronics.services;
 
 
 namespace QualityElectronics.Controllers;
@@ -10,21 +11,22 @@ namespace QualityElectronics.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly GlobalVariableService _globalVariableService;
+    public HomeController(ILogger<HomeController> logger, GlobalVariableService nombreUsuario)
     {
         _logger = logger;
+        _globalVariableService = nombreUsuario;
     }
 
     public IActionResult Index()
     {
         var userJson = HttpContext.Session.GetString("user");
         var usuario  = Usuario.FromString(userJson);
-        ViewBag.nombreUsuario =  usuario.Nombre;
-        ViewBag.apellidoUsuario = usuario.Apellido;
+        if(usuario != null){
+            _globalVariableService.nombreUsuario = $"{usuario.Nombre} {usuario.Apellido}";
+        }
         return View();
     }
-
     public IActionResult Privacy()
     {
         return View();
