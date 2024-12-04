@@ -1,0 +1,29 @@
+<section class="contenedor">
+    <section class="seccion">
+        <div class="nombre_sección">
+            <div class="img_nombre">
+                <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
+                <h1>@ViewBag.Nombre</h1>
+            </div>
+            <div class="linea"></div>
+        </div>
+        <section class="cards_container">
+            @{
+            foreach(Producto prod in ViewBag.ListaProductos)
+            {
+            <div class="card">
+                <img class="img_card" src="../Images/@prod.Foto">
+                <p class="nombre_producto">@prod.Nombre</p>
+                <div class="info_card">
+                    <p class="precio_card">@prod.Precio $ ARS</p>
+                    <form class="button_producto" method="post" action='@Url.Action("Producto", "Home")'>
+                        <input type="hidden" value="@prod">
+                        <input type="submit" value="Ver más">
+                    </form>
+                </div>
+            </div>
+            }
+            }
+        </section>
+    </section>
+</section>

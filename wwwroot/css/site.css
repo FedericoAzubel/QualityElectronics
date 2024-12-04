@@ -266,9 +266,14 @@ main {
     font-weight: bold;
 }
 
-.info_card button {
+.button_producto {
     width: 100%;
     height: 41px;
+}
+
+.button_producto input{
+    width: 100%;
+    height: 100%;
     background-color: #fff;
     border: 4px solid #B771AE;
     border-radius: 5px;
@@ -278,7 +283,7 @@ main {
     transition: .3s;
 }
 
-.info_card button:hover {
+.button_producto input:hover {
     background-color: #B771AE;
     color: #fff;
 }
@@ -793,6 +798,10 @@ textarea {
 
 /*Carrito*/
 
+.estrellas_input {
+    margin-bottom: 20px;
+}
+
 .modal-body p {
     color: #fff;
 }
@@ -928,8 +937,11 @@ textarea {
 .terminos p {
     margin-top: 16px;
     margin-left: 5px;
-    color: #B771AE;
-    text-decoration: underline;
+    color: #000;
+}
+
+.modal {
+    z-index:20000 ;
 }
 
 .comprar_container {
@@ -1638,12 +1650,29 @@ body
     cursor: pointer;
 }
 
-.estrella:hover {
-    color: gold;
+.estrella:focus {
+    color: #B771AE;
 }
 
 .estrella.seleccionada {
-    color: gold;
+    color: #B771AE;
 }
 
 /* ESTRELLAS */
+
+
+
+/*Mis Preguntas*/
+
+.pregunta {
+    width: 95%;
+    min-height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.motivo_preguntinia {
+    font-weight: bold;
+    font-size: 18px;
+}
+

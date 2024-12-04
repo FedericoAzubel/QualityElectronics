@@ -34,7 +34,7 @@ function LogOut() {
     sessionStorage.setItem("contador", contador);
 }
 
-
+/*
 //ESTRELLAS
 const estrellas = document.querySelectorAll('.estrella');
 let puntuacion = 0;
@@ -47,12 +47,12 @@ estrellas.forEach(estrella => {
     });
 
     // Cambiar color de las estrellas al pasar el ratón
-    estrella.addEventListener('mouseover', () => {
+    estrella.addEventListener('click', () => {
         for (let i = 0; i < estrellas.length; i++) {
             if (i < parseInt(estrella.getAttribute('data-valor'))) {
-                estrellas[i].style.color = 'gold';
+                estrellas[i].style.color = 'B771AE';
             } else {
-                estrellas[i].style.color = 'gray';
+                estrellas[i].style.color = 'B771AE';
             }
         }
     });
@@ -109,3 +109,4 @@ formulario.addEventListener('submit', function(event) {
         alert('Error al enviar la reseña');
     });
 });
+*/

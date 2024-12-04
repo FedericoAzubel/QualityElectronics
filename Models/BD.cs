@@ -7,6 +7,8 @@ public class BD
     public static List<Producto> ListaNotebooks = new List<Producto>();
     public static List<Producto> ListaPerifericos = new List<Producto>();
     public static List<Producto> ListaTuCatalogo = new List<Producto>();
+    public static List<Preguntas_Motivo> ListaPreguntas = new List<Preguntas_Motivo>();
+
     private static string _connectionString = @"Server=localhost;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
@@ -14,7 +16,7 @@ public class BD
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT * FROM Productos";
+            string sql = "SELECT * FROM Producto";
             ListaProductos = db.Query<Producto>(sql).ToList();
         }
         return ListaProductos;
@@ -89,6 +91,27 @@ public class BD
             ListaUsers = db.Query<Usuario>(sql).ToList();
         }
         return ListaUsers;
+    }
+
+    public static void IngresarReseña(int IdProducto, int Puntuacion, string Contenido, int IdUsuario)
+    {
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO Reseñas(IdProducto, Puntuacion, Contenido, IdUsuario) VALUES (@pIdProducto, @pPuntuacion, @pContenido, @pIdUsuario)";
+            db.Execute(sql, new{pIdProducto = IdProducto, pPuntuacion = Puntuacion, pContenido = Contenido, pIdUsuario = IdUsuario});
+        }
+    }
+
+
+    public static List<Preguntas_Motivo> LevantarPreguntasUsuario(int IdUsuario)
+    {
+        
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT PU.Contenido, MP.NombreMotivo FROM Preguntas_Usuario AS PU INNER JOIN  PreguntasDelUsuario AS PDL on PU.IdPregunta = PDL.IdPregunta INNER JOIN Motivo_Pregunta AS MP ON PDL.IdMotivo = MP.IdMotivo INNER JOIN Usuario AS U ON PDL.IdUsuario  = U.IdUsuario WHERE U.IdUsuario = @pIdUsuario;";
+            ListaPreguntas = db.Query<Preguntas_Motivo>(sql, new {pIdUsuario = IdUsuario}).ToList();
+        }
+        return ListaPreguntas;
     }
    
 }

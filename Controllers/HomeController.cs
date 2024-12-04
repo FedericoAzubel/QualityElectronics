@@ -38,20 +38,50 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
+    public IActionResult CatalogoDeProductos()
+    {
+       return View();
+    }
+
     public IActionResult Catalogo()
     {
-        return View();
+        ViewBag.Nombre = "Catálogo";
+        List<Producto> ListaProductos = BD.LevantarProductos();
+        ViewBag.ListaProductos = ListaProductos;
+        return View("CatalogoDeProductos");
     }
 
     public IActionResult Notebooks()
     {
-        return View();
+        ViewBag.Nombre = "Notebooks";
+        List<Producto> ListaProductos = BD.LevantarNotebooks();
+        ViewBag.ListaProductos = ListaProductos;
+        return View("CatalogoDeProductos");
     }
 
     public IActionResult Perifericos()
     {
-        return View();
+        ViewBag.Nombre = "Periféricos";
+        List<Producto> ListaProductos = BD.LevantarPerifericos();
+        ViewBag.ListaProductos = ListaProductos;
+        return View("CatalogoDeProductos");
     }
+    
+    public IActionResult TuCatalogo(int clas3)
+    {
+        string opcionString = HttpContext.Session.GetString("ListaOpcion");
+        List<int> opcion = JsonConvert.DeserializeObject<List<int>>(opcionString);
+
+        string clas2String = HttpContext.Session.GetString("class2");
+        int clas2 = int.Parse(clas2String); // Convierte el string a int
+
+        BD.LevantarTuCatalogo(clas2, clas3, opcion);
+
+        ViewBag.Nombre = "Tu Catálogo";
+        ViewBag.ListaProductos = BD.ListaTuCatalogo;
+        return View("CatalogoDeProductos");
+    }
+
     
     public IActionResult Filtros1()
     {
@@ -73,20 +103,6 @@ public class HomeController : Controller
         HttpContext.Session.SetString("class2", clas2.ToString());
         return View();
     }
-    
-    public IActionResult TuCatalogo(int clas3)
-    {
-        string opcionString = HttpContext.Session.GetString("ListaOpcion");
-        List<int> opcion = JsonConvert.DeserializeObject<List<int>>(opcionString);
-
-        string clas2String = HttpContext.Session.GetString("class2");
-        int clas2 = int.Parse(clas2String); // Convierte el string a int
-
-        BD.LevantarTuCatalogo(clas2, clas3, opcion);
-        ViewBag.ListaTuCatalogo = BD.ListaTuCatalogo;
-        return View("Catalogo");
-    }
-
     public IActionResult Ayuda()
     {
         return View();
@@ -112,18 +128,37 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Producto()
+    public IActionResult Producto(Producto producto)
     {
+        HttpContext.Session.Remove("ObjetoProducto");
+        HttpContext.Session.SetString("ObjetoProducto", JsonConvert.SerializeObject(producto));
         return View();
     }
     
     public IActionResult MisPreguntas()
     {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        List<Preguntas_Motivo> ListaPreguntas = BD.LevantarPreguntasUsuario(IdUsuario);
+        ViewBag.ListaPreguntas = ListaPreguntas;
         return View();
     }
     
     public IActionResult MisDomicilios()
     {
+        return View();
+    }
+    
+    public IActionResult EnviarReseña(int Puntuacion, string Contenido)
+    {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        string productoString = HttpContext.Session.GetString("ObjetoProducto");
+        Producto producto = JsonConvert.DeserializeObject<Producto>(productoString);
+        int IdProducto = producto.IdProducto;
+        BD.IngresarReseña(IdProducto, Puntuacion, Contenido, IdUsuario);
         return View();
     }
 }

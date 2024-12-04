@@ -13,8 +13,25 @@
                 <p>Preguntas</p>
                 <div class="linea"></div>
             </div>
-            <div class="cuenta_mensaje">
-                <p>No tienes preguntas cargados</p>
-            </div>
+            @{
+                if(ViewBag.ListaPreguntas.Count != 0)
+                {
+                    foreach(Preguntas_Motivo pregunta in ViewBag.ListaPreguntas)
+                    {
+                        <div class="pregunta">
+                        <p class="motivo_preguntinia">Motivo:</p>
+                        <p>@pregunta.Motivo</p>
+                        <p class="motivo_preguntinia">Pregunta:</p>
+                        <p>@pregunta.Contenido</p>
+                    </div>
+                    }
+                }
+                else
+                {
+                    <div class="cuenta_mensaje">
+                        <p>No tienes preguntas cargados</p>
+                    </div>
+                } 
+            }
     </section>
 </section>

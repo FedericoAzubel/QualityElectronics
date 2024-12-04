@@ -107,15 +107,10 @@
 
        <section class="seccion5">
     <form id="formularioReseña" method="post" action="/path/to/ingresarReseña">
-        <div class="estrellas">
-            <span class="estrella" data-valor="1">&#9733;</span>
-            <span class="estrella" data-valor="2">&#9733;</span>
-            <span class="estrella" data-valor="3">&#9733;</span>
-            <span class="estrella" data-valor="4">&#9733;</span>
-            <span class="estrella" data-valor="5">&#9733;</span>
-        </div>
+        <p>¿Qué puntuación le darías?</p>
+        <input type="number" min="1" max="5" class="estrellas_input" name="Puntuacion">
         <p>Dinos lo que opinas</p>
-        <textarea id="comentarios" name="reseña" placeholder="Escribe tu reseña aquí" class="reseña_content"></textarea>
+        <textarea id="comentarios" name="Contenido" placeholder="Escribe tu reseña aquí" class="reseña_content"></textarea>
         <input type="submit" value="Publicar" class="publicar">
     </form>
 </section>
