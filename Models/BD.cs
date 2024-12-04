@@ -7,7 +7,7 @@ public class BD
     public static List<Producto> ListaNotebooks = new List<Producto>();
     public static List<Producto> ListaPerifericos = new List<Producto>();
     public static List<Producto> ListaTuCatalogo = new List<Producto>();
-    private static string _connectionString = @"Server=localhost;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()

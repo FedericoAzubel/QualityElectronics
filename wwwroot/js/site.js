@@ -1,23 +1,31 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
     const usuario = document.querySelector(".nombre_usuario");
-    console.log(usuario.innerHTML)
     const cerrarSesion = document.querySelector(".usuarioOpcion2");
-    console.log(usuario.value + " caca")
+    const iniciarSesion = document.querySelector(".usuarioOpcion0");
+    const crearSesion = document.querySelector(".usuarioOpcion1");
 
-    if (usuario.innerHTML != "Inicie sesión" && cerrarSesion.classList.contains("displayNone")) //Esta iniciado y contiene la clase display none
-    {
-        cerrarSesion.classList = "dropdown-item usuarioOpcion2";
-    }
-    else if (usuario.innerHTML == "Inicie sesión" && !cerrarSesion.classList.contains("displayNone")) //No esta iniciado y no contiene la clase display none
-    {
-        cerrarSesion.classList = "dropdown-item usuarioOpcion2 displayNone";
-    }
+    const actualizarEstadoSesion = () => {
+        if (usuario.innerHTML !== "Inicie sesión") {
+            // Usuario está iniciado
+            cerrarSesion.classList.remove("displayNone");
+            iniciarSesion.classList.add("displayNone");
+            crearSesion.classList.add("displayNone");
+        } else {
+            // Usuario no está iniciado
+            cerrarSesion.classList.add("displayNone");
+            iniciarSesion.classList.remove("displayNone");
+            crearSesion.classList.remove("displayNone");
+        }
+    };
 
-    const LogOut = () => {
-        localStorage.removeItem("nombre")
-        localStorage.removeItem("apellido")
-        sessionStorage.setItem("contador", contador);
-    }
+    // Actualizar el estado de las clases según el contenido
+    actualizarEstadoSesion();
+});
 
-
-})
+// Declarar LogOut como función global
+function LogOut() {
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("apellido");
+    const contador = sessionStorage.getItem("contador") || 0; // Asegúrate de que contador esté definido
+    sessionStorage.setItem("contador", contador);
+}

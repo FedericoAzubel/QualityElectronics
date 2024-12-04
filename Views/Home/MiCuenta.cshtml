@@ -15,7 +15,7 @@
                 </div>
                 <div class="cuenta_mensaje">
                     <p>Podés ver las preguntas que hiciste y darle seguimiento</p>
-                    <a href="">desde acá</a>
+                    <a href='@Url.Action("MisPreguntas","Home")'>desde acá</a>
                 </div>
             </div>
             
@@ -27,7 +27,7 @@
                 <div class="cuenta_mensaje">
                     <p>No tenes domicilios agregados</p>
                 </div>
-                <div class="agregar_dom">
+                <div class="agregar_dom" onclick="window.location.href='@Url.Action("MisDomicilios", "Home")'">
                     <img src="../Images/edit.png">
                     <p>Cambiar o agregar domicilio</p>
                 </div>

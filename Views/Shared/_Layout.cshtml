@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-      <link rel="icon" href="../Images/LogoEfsi.png" type="image/png">
+      <link rel="icon" href="../Images/icono.png">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - QualityElectronics</title>
@@ -16,7 +16,7 @@
     <header>
         <div class="nav_container">
             <nav class="header1">
-                <a href='@Url.Action("Index","Home")' class="a_container"><img class="logo" src="../Images/Logo1.png"></a>
+                <a href='@Url.Action("Index","Home")' class="a_container"><img class="logo" src="../Images/loginio.jpg"></a>
                 <form class="buscador">
                     <input type="search" placeholder="Buscar productos" aria-label="Search">
                     <button class="lupa" type="submit"><img src="../Images/lupa.png" class="lupa_img"></button>
@@ -29,8 +29,8 @@
                  <span class="dropdown-toggle-icon"></span> 
                 </button>
                 <ul class="dropdown-menu">
-                     <li><a class="dropdown-item usuarioOpcion" href="@Url.Action("Login","Auth")">Iniciar Sesión</a></li>
-                     <li><a class="dropdown-item usuarioOpcion" href="@Url.Action("SignUp","Auth")">Registrarse</a></li>
+                     <li><a class="dropdown-item usuarioOpcion0" href="@Url.Action("Login","Auth")">Iniciar Sesión</a></li>
+                     <li><a class="dropdown-item usuarioOpcion1" href="@Url.Action("SignUp","Auth")">Registrarse</a></li>
                      <li><a class="dropdown-item usuarioOpcion2" href="@Url.Action("Logout","Auth")" onclick='LogOut()'>Cerrar sesión</a></li>
                      <li><a class="dropdown-item" href="@Url.Action("Producto","Home")">Producto</a></li>
                 </ul>

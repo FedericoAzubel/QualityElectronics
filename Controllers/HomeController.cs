@@ -116,4 +116,14 @@ public class HomeController : Controller
     {
         return View();
     }
+    
+    public IActionResult MisPreguntas()
+    {
+        return View();
+    }
+    
+    public IActionResult MisDomicilios()
+    {
+        return View();
+    }
 }

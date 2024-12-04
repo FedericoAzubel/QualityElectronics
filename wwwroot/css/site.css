@@ -42,14 +42,13 @@ header {
 }
 
 .a_container {
-    /*se intento, pa despues*/
+    display: flex;
+    align-items: center;
 }
   
 .logo {
     width: 244px;
-    height: 210px;
-    position: relative;
-    top: 15px;
+    height: 82px;
 }
     
 .buscador {
@@ -1553,3 +1552,43 @@ body
     border-radius: 10px;
 }
 
+
+/*Mis Domicilios*/
+
+.form_dom {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form_dom input {
+    width: 98%;
+    height: 40px;
+    padding-left: 6px;
+}
+
+.form_dom input:focus {
+    outline: none;
+}
+
+.enviar_dom {
+    background-color: #fff;
+    color: #B771AE;
+    font-weight: bold;
+    border: 3px solid #B771AE;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+.enviar_dom:hover {
+    background-color: #B771AE;
+    color: #fff;
+}
+
+.dom_agregado {
+    margin-bottom: 30px;
+}
