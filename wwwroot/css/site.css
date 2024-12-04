@@ -1625,3 +1625,25 @@ body
     margin-top: 35px;
     margin-bottom: 50px;
 }
+
+/* ESTRELLAS */
+.estrellas {
+    display: flex;
+    direction: row;
+}
+
+.estrella {
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}
+
+.estrella:hover {
+    color: gold;
+}
+
+.estrella.seleccionada {
+    color: gold;
+}
+
+/* ESTRELLAS */
