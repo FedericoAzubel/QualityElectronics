@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using System.Reflection;
 using Dapper;
 
 public class BD
@@ -8,8 +9,10 @@ public class BD
     public static List<Producto> ListaPerifericos = new List<Producto>();
     public static List<Producto> ListaTuCatalogo = new List<Producto>();
     public static List<Preguntas_Motivo> ListaPreguntas = new List<Preguntas_Motivo>();
+    public static List<Motivo> ListaMotivos = new List<Motivo>();
+    public static List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
 
-    private static string _connectionString = @"Server=localhost;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -112,6 +115,68 @@ public class BD
             ListaPreguntas = db.Query<Preguntas_Motivo>(sql, new {pIdUsuario = IdUsuario}).ToList();
         }
         return ListaPreguntas;
+    }
+
+
+    public static int ObtenerIdMotivoPorNombre(string NombreMotivo)
+    {
+        int IdMotivo = 0;  // Valor predeterminado en caso de no encontrar coincidencias
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT IdMotivo FROM Motivo_Pregunta WHERE NombreMotivo = @pNombreMotivo";
+            // Usar QueryFirstOrDefault para obtener un valor directamente, accediendo al campo de forma explícita
+            var result = db.QueryFirstOrDefault(sql, new { pNombreMotivo = NombreMotivo });
+            
+            // Verificar si se encontró el resultado y luego convertirlo a int
+            if (result != null)
+            {
+                IdMotivo = result.IdMotivo;  // Acceder al campo IdMotivo directamente
+            }
+        }
+        return IdMotivo;  // Devolver el valor de IdMotivo
+    }
+
+    public static void InsertarPregunta(string Contenido, int IdMotivo, int IdUsuario)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO Preguntas_Usuario (Contenido) OUTPUT INSERTED.IdPregunta VALUES (@pContenido)";
+            int IdPregunta = db.ExecuteScalar<int>(sql, new { pContenido = Contenido });
+
+            string sql2 = "INSERT INTO PreguntasDelUsuario (IdPregunta, IdMotivo, IdUsuario) VALUES (@pIdPregunta, @pIdMotivo, @pIdUsuario)";
+            db.Execute(sql2, new{pIdPregunta = IdPregunta, pIdMotivo = IdMotivo, pIdUsuario = IdUsuario});
+        }
+    }
+
+    public static List<Motivo> LevantarMotivos()
+    {
+        List<Motivo> ListaMotivos = new List<Motivo>();
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Motivo_Pregunta";
+            ListaMotivos = db.Query<Motivo>(sql).ToList();
+        }
+        return ListaMotivos;
+    }
+
+    public static void InsertarDomicilio(string nombreDom, string NombreCalle, int alturaCalle, string codigoPostal, string provincia, int IdUsuario)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO DomiciliosUsuarios (nombreDom, NombreCalle, alturaCalle, codigoPostal, provincia, IdUsuario) VALUES (@pnombreDom, @pNombreCalle, @palturaCalle, @pcodigoPostal, @pprovincia, @pIdUsuario)";
+            db.Execute(sql, new{pnombreDom = nombreDom, pNombreCalle = NombreCalle, palturaCalle = alturaCalle, pcodigoPostal = codigoPostal, pprovincia = provincia, pIdUsuario = IdUsuario});
+        }
+    }
+
+    public static List<DomiciliosUsuarios> LevantarDomicilios(int IdUsuario)
+    {
+        List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM DomiciliosUsuarios WHERE IdUsuario = @pIdUsuario";
+            ListaDoms = db.Query<DomiciliosUsuarios>(sql, new{pIdUsuario = IdUsuario}).ToList();
+        }
+        return ListaDoms;
     }
    
 }

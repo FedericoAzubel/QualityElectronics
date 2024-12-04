@@ -13,9 +13,27 @@
                 <p>Domicilios Agregados</p>
                 <div class="linea"></div>
             </div>
-            <div class="cuenta_mensaje">
-                <p>No tienes domicilios cargados</p>
-            </div>
+            @{
+                if(ViewBag.ListaDoms.Count != 0)
+                {
+                    <div class="pregunta">
+                        <ul>
+                            @foreach(DomiciliosUsuarios dom in ViewBag.ListaDoms)
+                            {
+                                <li>@dom.nombreDom</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="cuenta_mensaje">
+                        <p>No tienes domicilios cargados</p>
+                    </div>
+                }
+            }
+            
+
         </div>
 
         <div class="cuenta_option">
@@ -24,11 +42,12 @@
                 <div class="linea"></div>
             </div>
             <div class="cuenta_mensaje">
-                <form class="form_dom">
-                    <input type="text" placeholder="Nombre del domicilio" autocomplete="off">
-                    <input type="text" placeholder="Calle" autocomplete="off">
-                    <input type="text" placeholder="Altura" autocomplete="off">
-                    <input type="text" placeholder="Código postal" autocomplete="off">
+                <form class="form_dom" action='@Url.Action("InsertarNuevoDom", "Home")'>
+                    <input type="text" name="nombreDom" placeholder="Nombre del domicilio" autocomplete="off">
+                    <input type="text" name="NombreCalle" placeholder="Calle" autocomplete="off">
+                    <input type="number" name="alturaCalle" placeholder="Altura" autocomplete="off">
+                    <input type="text" name="codigoPostal" placeholder="Código postal" autocomplete="off">
+                    <input type="text" name="provincia" placeholder="Provincia" autocomplete="off">
                     <input type="submit" value="Guardar Domicilio" class="enviar_dom">
                 </form>
             </div>

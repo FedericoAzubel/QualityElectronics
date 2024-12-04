@@ -12,6 +12,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly GlobalVariableService _globalVariableService;
+
     public HomeController(ILogger<HomeController> logger, GlobalVariableService nombreUsuario)
     {
         _logger = logger;
@@ -105,6 +106,8 @@ public class HomeController : Controller
     }
     public IActionResult Ayuda()
     {
+        List<Motivo> ListaMotivos = BD.LevantarMotivos();
+        ViewBag.ListaMotivos = ListaMotivos;
         return View();
     }
 
@@ -147,6 +150,11 @@ public class HomeController : Controller
     
     public IActionResult MisDomicilios()
     {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
+        ViewBag.ListaDoms = ListaDoms;
         return View();
     }
     
@@ -160,5 +168,24 @@ public class HomeController : Controller
         int IdProducto = producto.IdProducto;
         BD.IngresarReseña(IdProducto, Puntuacion, Contenido, IdUsuario);
         return View();
+    }
+
+    public IActionResult InsertarPreguntaUsuario(string Contenido, string NombreMotivo)
+    {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        int IdMotivo = BD.ObtenerIdMotivoPorNombre(NombreMotivo);
+        BD.InsertarPregunta(Contenido, IdMotivo, IdUsuario);
+        return RedirectToAction("Ayuda");
+    }
+
+    public IActionResult InsertarNuevoDom(string nombreDom, string NombreCalle, int alturaCalle, string codigoPostal, string provincia)
+    {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        BD.InsertarDomicilio(nombreDom, NombreCalle, alturaCalle, codigoPostal, provincia, IdUsuario);
+        return RedirectToAction("MisDomicilios");
     }
 }

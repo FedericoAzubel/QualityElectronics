@@ -94,15 +94,17 @@
     </div>
 
     <!-- SECCIÓN_CONSULTAS -->
-    <form class="form_ayuda">
+    <form class="form_ayuda" action='@Url.Action("InsertarPreguntaUsuario", "Home")' method="post">
         <p>Quality Electronics te ayuda. ¿Cuál es tu consulta?</p>
-            <select class="form-select_ayuda">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select name="NombreMotivo" class="form-select_ayuda" required>
+                @{
+                    foreach(Motivo motivo in ViewBag.ListaMotivos)
+                    {
+                        <option value="@motivo.NombreMotivo">@motivo.NombreMotivo</option>
+                    }
+                }
             </select>
-        <textarea id="comentarios" name="comentarios" placeholder="Escribe tu mensaje aquí..."></textarea>
+        <textarea id="comentarios" name="Contenido" placeholder="Escribe tu mensaje aquí..."></textarea>
         <input type="submit" value="ENVIAR CONSULTA" class="enviar_consulta"> 
     </form>
     </section>

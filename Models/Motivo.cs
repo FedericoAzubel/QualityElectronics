@@ -1,5 +1,5 @@
 public class Motivo
 {
-    int IdMotivo {get; set;}
-    string motivo {get; set;}
+    public int IdMotivo {get; set;}
+    public string NombreMotivo   {get; set;}
 }

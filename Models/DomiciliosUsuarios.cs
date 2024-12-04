@@ -1,10 +1,11 @@
 public class DomiciliosUsuarios
 {
-    int IdDomicilio {get; set;}
-    string nombreDom {get; set;}
-    string nombreCalle {get; set;}
-    int     alturaCalle {get; set;}
-    int codigoPostal {get; set;}
-    string provinica {get; set;}
-    int IdUsuario {get; set;}
+    public int IdDomicilio {get; set;}
+    public string nombreDom {get; set;}
+    public string NombreCalle {get; set;}
+    public string nombreCalle {get; set;}
+    public int alturaCalle {get; set;}
+    public int codigoPostal {get; set;}
+    public string provinica {get; set;}
+    public int IdUsuario {get; set;}
 }
