@@ -29,3 +29,79 @@ function LogOut() {
     const contador = sessionStorage.getItem("contador") || 0; // Asegúrate de que contador esté definido
     sessionStorage.setItem("contador", contador);
 }
+
+
+//ESTRELLAS
+const estrellas = document.querySelectorAll('.estrella');
+let puntuacion = 0;
+
+// Manejar la selección de estrellas
+estrellas.forEach(estrella => {
+    estrella.addEventListener('click', () => {
+        puntuacion = parseInt(estrella.getAttribute('data-valor'));  // Guardamos el valor como entero
+        actualizarEstrellas();
+    });
+
+    // Cambiar color de las estrellas al pasar el ratón
+    estrella.addEventListener('mouseover', () => {
+        for (let i = 0; i < estrellas.length; i++) {
+            if (i < parseInt(estrella.getAttribute('data-valor'))) {
+                estrellas[i].style.color = 'gold';
+            } else {
+                estrellas[i].style.color = 'gray';
+            }
+        }
+    });
+
+    estrella.addEventListener('mouseout', () => {
+        actualizarEstrellas();
+    });
+});
+
+function actualizarEstrellas() {
+    estrellas.forEach(estrella => {
+        if (parseInt(estrella.getAttribute('data-valor')) <= puntuacion) {
+            estrella.classList.add('seleccionada');
+        } else {
+            estrella.classList.remove('seleccionada');
+        }
+    });
+}
+
+// Enviar la reseña al servidor
+const formulario = document.getElementById('formularioReseña');
+formulario.addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar que el formulario se envíe de la forma tradicional
+
+    const contenido = document.getElementById('comentarios').value;
+
+    // Crear los datos que se van a enviar al servidor
+    const idProducto = 1;  // ID del producto (deberías cambiarlo dinámicamente)
+    const idUsuario = 1;   // ID del usuario (deberías cambiarlo dinámicamente)
+
+    // Enviar los datos a través de Fetch API
+    fetch('/path/to/ingresarReseña', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idProducto: idProducto,
+            puntuacion: puntuacion,  // Puntuación seleccionada como entero
+            contenido: contenido,    // Contenido de la reseña
+            idUsuario: idUsuario     // ID del usuario
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Reseña publicada correctamente');
+        } else {
+            alert('Hubo un error al publicar la reseña');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al enviar la reseña');
+    });
+});
