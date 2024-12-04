@@ -3,6 +3,8 @@
     const cerrarSesion = document.querySelector(".usuarioOpcion2");
     const iniciarSesion = document.querySelector(".usuarioOpcion0");
     const crearSesion = document.querySelector(".usuarioOpcion1");
+    const seccion1 = document.querySelector(".seccion_1");
+    const seccion2 = document.querySelector(".seccion_2");
 
     const actualizarEstadoSesion = () => {
         if (usuario.innerHTML !== "Inicie sesión") {
@@ -15,6 +17,8 @@
             cerrarSesion.classList.add("displayNone");
             iniciarSesion.classList.remove("displayNone");
             crearSesion.classList.remove("displayNone");
+            seccion1.classList.add("displayNone");
+            seccion2.classList.remove("displayNone");
         }
     };
 

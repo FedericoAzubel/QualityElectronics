@@ -1,5 +1,5 @@
 <section class="contenedor">
-    <section class="seccion">
+    <section class="seccion_1">
         <div class="nombre_sección">
             <div class="img_nombre">
                 <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
@@ -70,10 +70,63 @@
                 <div class="terminos">
                     <input type="checkbox">
                     <label>Al comprar, aceptas los </label>
-                    <p>términos y condiciones</p>
+                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#terminosModal">términos y condiciones.</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade centrado" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="terminosModalLabel">Términos y Condiciones</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Aquí van los términos y condiciones...
+                                    <p>
+                                        1. Introducción
+                                        Al acceder o realizar una compra en Quality Electronics, aceptas estos términos y condiciones. Si no estás de acuerdo, por favor, no utilices nuestros servicios.
+
+                                        2. Precios y Métodos de Pago
+                                        Los precios están en [moneda local] e incluyen impuestos.
+                                        Aceptamos pagos por [métodos de pago]. El Cliente debe proporcionar información de pago precisa.
+                                        3. Proceso de Compra
+                                        Al realizar un pedido, el Cliente recibirá una confirmación por correo electrónico. El contrato de venta será válido una vez procesado el pago.
+
+                                        4. Envíos y Entregas
+                                        Los productos se enviarán a la dirección proporcionada por el Cliente. El tiempo de entrega varía según la ubicación, y los costos de envío se calcularán durante el proceso de compra.
+
+                                        5. Devoluciones y Reembolsos
+                                        No aceptamos devoluciones de productos personalizados a menos que lleguen defectuosos. Si el producto está defectuoso o dañado, notifica a Quality Electronics dentro de [plazo] para gestionar el cambio o reembolso.
+
+                                        6. Garantía
+                                        Las computadoras armadas tienen [número de meses/años] de garantía contra defectos de fabricación. La garantía no cubre daños por mal uso o modificaciones no autorizadas.
+
+                                        7. Responsabilidad
+                                        Quality Electronics no será responsable por daños derivados del uso de nuestros productos. El Cliente es responsable de verificar la compatibilidad del producto con sus necesidades.
+
+                                        8. Protección de Datos Personales
+                                        Tratamos los datos personales del Cliente conforme a nuestra Política de Privacidad. Al comprar, el Cliente autoriza el uso de sus datos para procesar el pedido.
+
+                                        9. Modificaciones
+                                        Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios se aplicarán una vez publicados en el Sitio Web.
+
+                                        10. Contacto
+                                        Para consultas, contáctanos a:
+
+                                        Correo: [correo electrónico]
+                                        Teléfono: [número de teléfono]
+
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <div class="comprar_container">
                 <h1 class="total">Total: 1.000.000 $ARS</h1>
                 <button class="comprar_button">
@@ -81,5 +134,17 @@
                 </button>
             </div>
         </section>
+    </section>
+    <section class="seccion_2 displayNone">
+        <div class="nombre_sección">
+            <div class="img_nombre">
+                <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
+                <h1>Carrito de compras</h1>
+            </div>
+            <div class="linea"></div>
+        </div>
+        <div class="sesionMensaje_container">
+            <p class="sesion_continuar">Inicie sesión para continuar</p>
+        </div>
     </section>
 </section>
