@@ -136,9 +136,8 @@ public class HomeController : Controller
         Producto deserializedProducto = Newtonsoft.Json.JsonConvert.DeserializeObject<Producto>(producto);
         ViewBag.Producto = deserializedProducto;
         int IdProducto = deserializedProducto.IdProducto;
-        List<Seccion> ListaSeccion = BD.LevantarSeccionesProd(IdProducto);
+        List<Seccion> ListaSeccion = BD.LevantarSeccionesProd();
         List<Atributo> ListaAtributo = BD.LevantarAtributoProd(IdProducto);
-        ViewBag.IdProducto = IdProducto;
         ViewBag.ListaSeccion = ListaSeccion;
         ViewBag.ListaAtributo = ListaAtributo;
         return View();

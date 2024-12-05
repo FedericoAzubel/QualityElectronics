@@ -181,13 +181,13 @@ public class BD
         return ListaDoms;
     }
 
-    public static List<Seccion> LevantarSeccionesProd(int IdProducto)
+    public static List<Seccion> LevantarSeccionesProd()
     {
         List<Seccion> ListaSeccion = new List<Seccion>();
         using(SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT Nombre FROM Seccion WHERE IdProducto = @pIdProducto";
-            ListaSeccion = db.Query<Seccion>(sql, new{pIdProducto = IdProducto}).ToList();
+            string sql = "SELECT * FROM Seccion";
+            ListaSeccion = db.Query<Seccion>(sql).ToList();
         }
         return ListaSeccion;
     }
@@ -197,11 +197,7 @@ public class BD
         List<Atributo> ListaAtributo = new List<Atributo>();
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = @"
-                SELECT Atributo.Campo, Atributo.Valor 
-                FROM Atributo 
-                INNER JOIN Seccion ON Atributo.IdSeccion = Seccion.IdSeccion 
-                WHERE Seccion.IdProducto = @pIdProducto";
+            string sql="SELECT * FROM Atributo WHERE IdProducto = @pIdProducto";
 
             ListaAtributo = db.Query<Atributo>(sql, new { pIdProducto = IdProducto }).ToList();
         }

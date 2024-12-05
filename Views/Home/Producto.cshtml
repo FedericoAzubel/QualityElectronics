@@ -21,17 +21,18 @@
             </div>
         </section>
 
-            <section class="seccion2">
+<section class="seccion2">
     <p class="nombre_seccion">ESPECIFICACIONES</p>
-    @foreach (Seccion sec in ViewBag.ListaSeccion)
+    
+    @foreach(Seccion sec in ViewBag.ListaSeccion)
     {
         <div class="sub_seccion">
-            <p class="nombre_sec">@sec.Nombre</p>
+            <p class="nombre_sec">@sec.NombreSeccion</p>
             <div class="linea"></div>
             <ul class="lista_datos">
-                @foreach (Atributo atr in ViewBag.ListaAtributo)
+            @foreach(Atributo atr in ViewBag.ListaAtributo)
                 {
-                    @if (atr.IdSeccion == sec.IdSeccion)  <!-- Filtramos los atributos por IdSeccion -->
+                    @if(atr.IdSeccion == sec.IdSeccion)
                     {
                         <li>
                             <p class="campo">@atr.Campo</p>
@@ -45,20 +46,14 @@
 </section>
 
 
-
         <section class="seccion3">
             <p class="nombre_seccion">DESCRIPCIÓN<p>
             <div class="texto_descripcion">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                    @ViewBag.Producto.Descripcion
                 </p>
             </div>
+            
         </section>
 
         <section class="seccion4">
