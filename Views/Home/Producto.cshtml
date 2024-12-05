@@ -21,32 +21,30 @@
             </div>
         </section>
 
-        <section class="seccion2">
-            <p class="nombre_seccion">ESPECIFICACIONES<p>
-            @{for(int i=0;i<6;i++)
-            {
-                <div class="sub_seccion">
-                    <p class="nombre_sec">Nombre_seccion</p>
-                    <div class="linea"></div>
-                    <ul class="lista_datos">
+            <section class="seccion2">
+    <p class="nombre_seccion">ESPECIFICACIONES</p>
+    @foreach (Seccion sec in ViewBag.ListaSeccion)
+    {
+        <div class="sub_seccion">
+            <p class="nombre_sec">@sec.Nombre</p>
+            <div class="linea"></div>
+            <ul class="lista_datos">
+                @foreach (Atributo atr in ViewBag.ListaAtributo)
+                {
+                    @if (atr.IdSeccion == sec.IdSeccion)  <!-- Filtramos los atributos por IdSeccion -->
+                    {
                         <li>
-                            <p class="campo">Campo</p>
-                            <p class="valor">Valor</p>
+                            <p class="campo">@atr.Campo</p>
+                            <p class="valor">@atr.Valor</p>
                         </li>
-                        <li>
-                            <p class="campo">Campo</p>
-                            <p class="valor">Valor</p>
-                        </li>
-                        <li>
-                            <p class="campo">Campo</p>
-                            <p class="valor">Valor</p>
-                        </li>
-                    <ul>
-                </div>
-            }
-            }
+                    }
+                }
+            </ul>
+        </div>
+    }
+</section>
 
-        </section>
+
 
         <section class="seccion3">
             <p class="nombre_seccion">DESCRIPCIÓN<p>

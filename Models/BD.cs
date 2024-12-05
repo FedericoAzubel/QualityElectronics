@@ -14,7 +14,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-LUM-16;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-06;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -195,13 +195,19 @@ public class BD
     public static List<Atributo> LevantarAtributoProd(int IdProducto)
     {
         List<Atributo> ListaAtributo = new List<Atributo>();
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT Campo, Valor FROM Atributo INNER JOIN Seccion ON Atributo Atributo.IdSeccion = Seccion.IdSeccion WHERE IdProducto = @pIdProducto";
-            ListaAtributo = db.Query<Atributo>(sql, new{pIdProducto = IdProducto}).ToList();
+            string sql = @"
+                SELECT Atributo.Campo, Atributo.Valor 
+                FROM Atributo 
+                INNER JOIN Seccion ON Atributo.IdSeccion = Seccion.IdSeccion 
+                WHERE Seccion.IdProducto = @pIdProducto";
+
+            ListaAtributo = db.Query<Atributo>(sql, new { pIdProducto = IdProducto }).ToList();
         }
         return ListaAtributo;
     }
+
 
 
     public static List<FormatoPago> LevantarFormatosPago()

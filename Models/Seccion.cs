@@ -1,6 +1,6 @@
 public class Seccion
 {
-    int IdSeccion {get; set;}
-    string Nombre {get; set;}
-    int IdProducto {get; set;}
+    public int IdSeccion {get; set;}
+    public string Nombre {get; set;}
+    public int IdProducto {get; set;}
 }

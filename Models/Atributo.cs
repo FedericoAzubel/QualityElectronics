@@ -1,7 +1,7 @@
 public class Atributo
 {
-    int IdAtributo {get; set;}
-    string Campo {get; set;}
-    string Valor {get; set;}
-    int IdSeccion {get; set;}
+    public int IdAtributo {get; set;}
+    public string Campo {get; set;}
+    public string Valor {get; set;}
+    public int IdSeccion {get; set;}
 }
