@@ -17,7 +17,7 @@
                 <div class="info_card">
                     <p class="precio_card">@prod.Precio $ ARS</p>
                     <form class="button_producto" method="post" action='@Url.Action("Producto", "Home")'>
-                        <input type="hidden" value="@prod">
+                        <input type="hidden" name="producto" value='@Newtonsoft.Json.JsonConvert.SerializeObject(prod)'>
                         <input type="submit" value="Ver más">
                     </form>
                 </div>

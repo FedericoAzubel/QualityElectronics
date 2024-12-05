@@ -60,14 +60,6 @@ public class HomeController : Controller
         return View("CatalogoDeProductos");
     }
 
-    public IActionResult Perifericos()
-    {
-        ViewBag.Nombre = "Periféricos";
-        List<Producto> ListaProductos = BD.LevantarPerifericos();
-        ViewBag.ListaProductos = ListaProductos;
-        return View("CatalogoDeProductos");
-    }
-    
     public IActionResult TuCatalogo(int clas3)
     {
         string opcionString = HttpContext.Session.GetString("ListaOpcion");
@@ -131,10 +123,10 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Producto(Producto producto)
+    public IActionResult Producto(string producto)
     {
-        HttpContext.Session.Remove("ObjetoProducto");
-        HttpContext.Session.SetString("ObjetoProducto", JsonConvert.SerializeObject(producto));
+        Producto deserializedProducto = Newtonsoft.Json.JsonConvert.DeserializeObject<Producto>(producto);
+        ViewBag.Producto = deserializedProducto;
         return View();
     }
     

@@ -8,7 +8,6 @@ public class Producto
     private int IdClasificacion {get; set;}
     public int IdClasificacion2 {get; set;}
     public int IdClasificacion3 {get; set;}
-    public bool EsPeriferico {get; set;}
     public bool EsNotebook {get; set;}
 
 }

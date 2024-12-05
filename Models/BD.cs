@@ -11,6 +11,8 @@ public class BD
     public static List<Preguntas_Motivo> ListaPreguntas = new List<Preguntas_Motivo>();
     public static List<Motivo> ListaMotivos = new List<Motivo>();
     public static List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
+    public static List<Seccion> ListaSeccion = new List<Seccion>();
+    public static List<Atributo> ListaAtributo = new List<Atributo>();
 
     private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
@@ -177,6 +179,28 @@ public class BD
             ListaDoms = db.Query<DomiciliosUsuarios>(sql, new{pIdUsuario = IdUsuario}).ToList();
         }
         return ListaDoms;
+    }
+
+    public static List<Seccion> LevantarSeccionesProd(int IdUsuario)
+    {
+        List<Seccion> ListaSeccion = new List<Seccion>();
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Seccion WHERE IdUsuario = @pIdUsuario";
+            ListaSeccion = db.Query<Seccion>(sql, new{pIdUsuario = IdUsuario}).ToList();
+        }
+        return ListaSeccion;
+    }
+    
+    public static List<Atributo> LevantarAtributoProd(int IdSeccion)
+    {
+        List<Atributo> ListaAtributo = new List<Atributo>();
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Atributo WHERE IdSeccion = @pIdSeccion";
+            ListaAtributo = db.Query<Atributo>(sql, new{pIdSeccion = IdSeccion}).ToList();
+        }
+        return ListaAtributo;
     }
    
 }

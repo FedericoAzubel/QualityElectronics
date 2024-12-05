@@ -237,9 +237,9 @@ main {
 }
 
 .img_card {
-    width: 275.35px;
+    width: 247px;
     height: 160px;
-    background-color: #ccc;
+    object-fit: contain;
 }
 
 .nombre_producto {
