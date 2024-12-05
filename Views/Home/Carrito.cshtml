@@ -39,10 +39,29 @@
                     <p>Envío</p>
                     <div class="linea"></div>
                 </div>
-                <div class="cuenta_mensaje">
-                    <p>Agregá un nuevo punto de envío o retiro</p>
-                    <a href="">desde acá</a>
-                </div>
+                @{
+                    int contador1 = 0;
+                    if(ViewBag.ListaDoms.Count != 0)
+                    {
+                        <div class="pregunta">
+                            @foreach(DomiciliosUsuarios dom in ViewBag.ListaDoms)
+                            {
+                                <div class="input_radio">
+                                    <input type="radio" name="dom" value="@dom" id="@contador1">
+                                    <label for="@contador1">@dom.nombreDom</label>
+                                </div>
+                                contador1++;
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="cuenta_mensaje">
+                            <p>Agregá un nuevo punto de envío o retiro</p>
+                            <a href='@Url.Action("MisDomicilios", "Home")'>desde acá</a>
+                        </div>
+                    }
+                }
             </div>
 
             <div class="cuenta_option producto_option">
@@ -51,18 +70,17 @@
                     <div class="linea"></div>
                 </div>
                 <div class="radio_container">
-                    <div class="input_radio">
-                        <input type="radio" value="" id="1">
-                        <label>Depósito o Transferencia Bancaria</label>
-                    </div>
-                    <div class="input_radio">
-                        <input type="radio" value="" id="2">
-                        <label>Depósito o Transferencia Bancaria</label>
-                    </div>                      
-                    <div class="input_radio">
-                        <input type="radio" value="" id="3">
-                        <label>Depósito o Transferencia Bancaria</label>
-                    </div>      
+                @{
+                    int contador = 1;
+                    foreach(FormatoPago pago in ViewBag.ListaPago)
+                    {
+                        <div class="input_radio">
+                            <input type="radio" name="pago" value="@pago.Descripcion" id="@contador">
+                            <label for="@contador">@pago.Descripcion</label>
+                        </div>
+                        contador++;
+                    }
+                }
                 </div>
             </div>
 
@@ -81,41 +99,72 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Aquí van los términos y condiciones...
-                                    <p>
+                                    <p class="titulo_terminos">
                                         1. Introducción
+                                    </p>
+                                    <p>
                                         Al acceder o realizar una compra en Quality Electronics, aceptas estos términos y condiciones. Si no estás de acuerdo, por favor, no utilices nuestros servicios.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         2. Precios y Métodos de Pago
-                                        Los precios están en [moneda local] e incluyen impuestos.
-                                        Aceptamos pagos por [métodos de pago]. El Cliente debe proporcionar información de pago precisa.
+                                    </p>
+                                    <p>
+                                        Los precios están en pesos e incluyen impuestos.
+                                        Aceptamos pagos por Transferencia, MercadoPago, Tarjetas de Crédito y Débito. El Cliente debe proporcionar información de pago precisa.
+                                    </p>
+                                    <p class="titulo_terminos">
                                         3. Proceso de Compra
+                                    </p>
+                                    <p>
                                         Al realizar un pedido, el Cliente recibirá una confirmación por correo electrónico. El contrato de venta será válido una vez procesado el pago.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         4. Envíos y Entregas
+                                    </p>
+                                    <p>
                                         Los productos se enviarán a la dirección proporcionada por el Cliente. El tiempo de entrega varía según la ubicación, y los costos de envío se calcularán durante el proceso de compra.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         5. Devoluciones y Reembolsos
-                                        No aceptamos devoluciones de productos personalizados a menos que lleguen defectuosos. Si el producto está defectuoso o dañado, notifica a Quality Electronics dentro de [plazo] para gestionar el cambio o reembolso.
-
+                                    </p>
+                                    <p>
+                                        No aceptamos devoluciones de productos personalizados a menos que lleguen defectuosos. Si el producto está defectuoso o dañado, notifica a Quality Electronics dentro de 1 mes para gestionar el cambio o reembolso.
+                                    </p>
+                                    <p class="titulo_terminos">
                                         6. Garantía
-                                        Las computadoras armadas tienen [número de meses/años] de garantía contra defectos de fabricación. La garantía no cubre daños por mal uso o modificaciones no autorizadas.
-
+                                    </p>
+                                    <p>
+                                        Las computadoras armadas tienen 3 años de garantía contra defectos de fabricación. La garantía no cubre daños por mal uso o modificaciones no autorizadas.
+                                    </p>
+                                    <p class="titulo_terminos">
                                         7. Responsabilidad
+                                    </p>
+                                    <p>
                                         Quality Electronics no será responsable por daños derivados del uso de nuestros productos. El Cliente es responsable de verificar la compatibilidad del producto con sus necesidades.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         8. Protección de Datos Personales
+                                    </p>
+                                    <p>
                                         Tratamos los datos personales del Cliente conforme a nuestra Política de Privacidad. Al comprar, el Cliente autoriza el uso de sus datos para procesar el pedido.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         9. Modificaciones
+                                    </p>
+                                    <p>
                                         Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios se aplicarán una vez publicados en el Sitio Web.
-
+                                    </p>
+                                    <p class="titulo_terminos">
                                         10. Contacto
+                                    </p>
+                                    <p>
                                         Para consultas, contáctanos a:
-
-                                        Correo: [correo electrónico]
-                                        Teléfono: [número de teléfono]
-
+                                    </p>
+                                    <p>
+                                    </p>
+                                    <p>
+                                        Correo: qualityelectronics@gmail.com
+                                        Teléfono: 1555685941
                                     </p>
                                 </div>
                                 <div class="modal-footer">

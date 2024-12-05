@@ -4,6 +4,10 @@ public class Producto
     public string Nombre {get; set;}
     public double Precio {get; set;}
     public string Foto {get; set;}
+    public string Foto2 {get; set;}
+    public string Foto3 {get; set;}
+    public string Foto4 {get; set;}
+    public string Foto5 {get; set;}
     public string Descripcion {get; set;}
     private int IdClasificacion {get; set;}
     public int IdClasificacion2 {get; set;}

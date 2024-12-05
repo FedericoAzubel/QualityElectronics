@@ -1,5 +1,5 @@
 public class FormatoPago
 {
-    int IdPago {get; set;}
-    string Descripcion {get; set;}
+    public int IdPago {get; set;}
+    public string Descripcion {get; set;}
 }

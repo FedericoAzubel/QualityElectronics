@@ -14,7 +14,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-LUM-16;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -181,27 +181,38 @@ public class BD
         return ListaDoms;
     }
 
-    public static List<Seccion> LevantarSeccionesProd(int IdUsuario)
+    public static List<Seccion> LevantarSeccionesProd(int IdProducto)
     {
         List<Seccion> ListaSeccion = new List<Seccion>();
         using(SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT * FROM Seccion WHERE IdUsuario = @pIdUsuario";
-            ListaSeccion = db.Query<Seccion>(sql, new{pIdUsuario = IdUsuario}).ToList();
+            string sql = "SELECT Nombre FROM Seccion WHERE IdProducto = @pIdProducto";
+            ListaSeccion = db.Query<Seccion>(sql, new{pIdProducto = IdProducto}).ToList();
         }
         return ListaSeccion;
     }
     
-    public static List<Atributo> LevantarAtributoProd(int IdSeccion)
+    public static List<Atributo> LevantarAtributoProd(int IdProducto)
     {
         List<Atributo> ListaAtributo = new List<Atributo>();
         using(SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT * FROM Atributo WHERE IdSeccion = @pIdSeccion";
-            ListaAtributo = db.Query<Atributo>(sql, new{pIdSeccion = IdSeccion}).ToList();
+            string sql = "SELECT Campo, Valor FROM Atributo INNER JOIN Seccion ON Atributo Atributo.IdSeccion = Seccion.IdSeccion WHERE IdProducto = @pIdProducto";
+            ListaAtributo = db.Query<Atributo>(sql, new{pIdProducto = IdProducto}).ToList();
         }
         return ListaAtributo;
     }
-   
+
+
+    public static List<FormatoPago> LevantarFormatosPago()
+    {
+        List<FormatoPago> ListaPago = new List<FormatoPago>();
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM FormatoDePago";
+            ListaPago = db.Query<FormatoPago>(sql).ToList();
+        }
+        return ListaPago;
+    }
 }
 

@@ -1676,3 +1676,9 @@ body
     font-size: 18px;
 }
 
+
+/*Terminos y condiciones*/
+
+.titulo_terminos {
+    font-weight: bold;
+}

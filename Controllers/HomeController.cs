@@ -120,6 +120,14 @@ public class HomeController : Controller
 
     public IActionResult Carrito()
     {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
+        ViewBag.ListaPago = ListaPago;
+        List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
+        ViewBag.ListaDoms = ListaDoms;
+
         return View();
     }
 
@@ -127,6 +135,11 @@ public class HomeController : Controller
     {
         Producto deserializedProducto = Newtonsoft.Json.JsonConvert.DeserializeObject<Producto>(producto);
         ViewBag.Producto = deserializedProducto;
+        int IdProducto = deserializedProducto.IdProducto;
+        List<Seccion> ListaSeccion = BD.LevantarSeccionesProd(IdProducto);
+        List<Atributo> ListaAtributo = BD.LevantarAtributoProd(IdProducto);
+        ViewBag.ListaSeccion = ListaSeccion;
+        ViewBag.ListaAtributo = ListaAtributo;
         return View();
     }
     
