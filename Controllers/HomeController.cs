@@ -123,21 +123,24 @@ public class HomeController : Controller
     {
         var userJson = HttpContext.Session.GetString("user");
         var usuario = Usuario.FromString(userJson);
-
+        ViewBag.Usuario = usuario;
         if (usuario == null)
         {
             ViewBag.Error = "Inicie sesión para continuar";
-            ViewBag.Usuario = usuario;
+            return View();
+        }
+        else
+        {
+            int IdUsuario = usuario.IdUsuario;
+            List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
+            ViewBag.ListaPago = ListaPago;
+            List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
+            ViewBag.ListaDoms = ListaDoms;
+
             return View();
         }
 
-        int IdUsuario = usuario.IdUsuario;
-        List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
-        ViewBag.ListaPago = ListaPago;
-        List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
-        ViewBag.ListaDoms = ListaDoms;
 
-        return View();
     }
 
 
@@ -172,8 +175,8 @@ public class HomeController : Controller
         ViewBag.ListaDoms = ListaDoms;
         return View();
     }
-<<<<<<< HEAD
-    
+
+
     //  public IActionResult MisCompras()
     // {
     //     var userJson = HttpContext.Session.GetString("user");
@@ -183,8 +186,6 @@ public class HomeController : Controller
     //     ViewBag.ListaCompras = ListaComps;
     //     return View();
     // }
-=======
->>>>>>> 1aa2fdb9111bbb211de24d821500dd9b4c8b8f1e
 
     public IActionResult EnviarReseña(int Puntuacion, string Contenido)
     {
