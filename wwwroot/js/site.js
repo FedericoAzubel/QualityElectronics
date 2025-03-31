@@ -6,6 +6,7 @@
     const seccion1 = document.querySelector(".seccion_1");
     const seccion2 = document.querySelector(".seccion_2");
 
+    console.log(usuario);
     const actualizarEstadoSesion = () => {
         if (usuario.innerHTML !== "Inicie sesión") {
             // Usuario está iniciado

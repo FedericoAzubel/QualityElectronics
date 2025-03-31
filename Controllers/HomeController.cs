@@ -22,8 +22,9 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
-        if(usuario != null){
+        var usuario = Usuario.FromString(userJson);
+        if (usuario != null)
+        {
             _globalVariableService.nombreUsuario = $"{usuario.Nombre} {usuario.Apellido}";
         }
         return View();
@@ -41,7 +42,7 @@ public class HomeController : Controller
 
     public IActionResult CatalogoDeProductos()
     {
-       return View();
+        return View();
     }
 
     public IActionResult Catalogo()
@@ -75,7 +76,7 @@ public class HomeController : Controller
         return View("CatalogoDeProductos");
     }
 
-    
+
     public IActionResult Filtros1()
     {
         HttpContext.Session.Remove("ListaOpcion");
@@ -121,7 +122,15 @@ public class HomeController : Controller
     public IActionResult Carrito()
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
+
+        if (usuario == null)
+        {
+            ViewBag.Error = "Inicie sesión para continuar";
+            ViewBag.Usuario = usuario;
+            return View();
+        }
+
         int IdUsuario = usuario.IdUsuario;
         List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
         ViewBag.ListaPago = ListaPago;
@@ -130,6 +139,7 @@ public class HomeController : Controller
 
         return View();
     }
+
 
     public IActionResult Producto(string producto)
     {
@@ -142,26 +152,27 @@ public class HomeController : Controller
         ViewBag.ListaAtributo = ListaAtributo;
         return View();
     }
-    
+
     public IActionResult MisPreguntas()
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         List<Preguntas_Motivo> ListaPreguntas = BD.LevantarPreguntasUsuario(IdUsuario);
         ViewBag.ListaPreguntas = ListaPreguntas;
         return View();
     }
-    
+
     public IActionResult MisDomicilios()
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
         ViewBag.ListaDoms = ListaDoms;
         return View();
     }
+<<<<<<< HEAD
     
     //  public IActionResult MisCompras()
     // {
@@ -172,11 +183,13 @@ public class HomeController : Controller
     //     ViewBag.ListaCompras = ListaComps;
     //     return View();
     // }
+=======
+>>>>>>> 1aa2fdb9111bbb211de24d821500dd9b4c8b8f1e
 
     public IActionResult EnviarReseña(int Puntuacion, string Contenido)
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         string productoString = HttpContext.Session.GetString("ObjetoProducto");
         Producto producto = JsonConvert.DeserializeObject<Producto>(productoString);
@@ -188,7 +201,7 @@ public class HomeController : Controller
     public IActionResult InsertarPreguntaUsuario(string Contenido, string NombreMotivo)
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         int IdMotivo = BD.ObtenerIdMotivoPorNombre(NombreMotivo);
         BD.InsertarPregunta(Contenido, IdMotivo, IdUsuario);
@@ -198,7 +211,7 @@ public class HomeController : Controller
     public IActionResult InsertarNuevoDom(string nombreDom, string NombreCalle, int alturaCalle, string codigoPostal, string provincia)
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         BD.InsertarDomicilio(nombreDom, NombreCalle, alturaCalle, codigoPostal, provincia, IdUsuario);
         return RedirectToAction("MisDomicilios");

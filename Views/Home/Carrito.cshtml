@@ -1,5 +1,7 @@
 <section class="contenedor">
-    <section class="seccion_1">
+@{
+    if(ViewBag.Usuario != null){
+<section class="seccion_1">
         <div class="nombre_sección">
             <div class="img_nombre">
                 <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
@@ -183,7 +185,8 @@
             </div>
         </section>
     </section>
-    <section class="seccion_2 displayNone">
+    } else{
+<section class="seccion_2">
         <div class="nombre_sección">
             <div class="img_nombre">
                 <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
@@ -192,7 +195,11 @@
             <div class="linea"></div>
         </div>
         <div class="sesionMensaje_container">
-            <p class="sesion_continuar">Inicie sesión para continuar</p>
+            <p class="sesion_continuar">@ViewBag.Error</p>
         </div>
     </section>
+    }
+}
+    
+    
 </section>
