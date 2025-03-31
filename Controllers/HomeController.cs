@@ -163,6 +163,16 @@ public class HomeController : Controller
         return View();
     }
     
+    //  public IActionResult MisCompras()
+    // {
+    //     var userJson = HttpContext.Session.GetString("user");
+    //     var usuario  = Usuario.FromString(userJson);
+    //     int IdUsuario = usuario.IdUsuario;
+    //     List<ComprasUsuarios> ListaComps = BD.LevantarCompras(IdUsuario);
+    //     ViewBag.ListaCompras = ListaComps;
+    //     return View();
+    // }
+
     public IActionResult EnviarReseña(int Puntuacion, string Contenido)
     {
         var userJson = HttpContext.Session.GetString("user");

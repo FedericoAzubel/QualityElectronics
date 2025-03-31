@@ -11,10 +11,12 @@ public class BD
     public static List<Preguntas_Motivo> ListaPreguntas = new List<Preguntas_Motivo>();
     public static List<Motivo> ListaMotivos = new List<Motivo>();
     public static List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
+
+    // public static List<ComprasUsuarios> ListaComps = new List<ComprasUsuarios>();   //Chequear como es en BD, faltaria crear ese historial de compras y desde ahi verlo como la view pasada
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-06;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-09;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -181,6 +183,17 @@ public class BD
         return ListaDoms;
     }
 
+    // public static List<ComprasUsuarios> LevantarCompras (int IdUsuario)
+    // {
+    //     List<ComprasUsuarios> ListaComps = new List<ComprasUsuarios>();
+    //     using(SqlConnection db = new SqlConnection(_connectionString))
+    //     {
+    //         string sql = "SELECT * FROM ComprasUsuarios WHERE IdUsuario = @pIdUsuario";
+    //         ListaComps = db.Query<ComprasUsuarios>(sql, new{pIdUsuario = IdUsuario}).ToList();
+    //     }
+    //     return ListaComps;
+    // }
+
     public static List<Seccion> LevantarSeccionesProd()
     {
         List<Seccion> ListaSeccion = new List<Seccion>();
@@ -203,8 +216,6 @@ public class BD
         }
         return ListaAtributo;
     }
-
-
 
     public static List<FormatoPago> LevantarFormatosPago()
     {
