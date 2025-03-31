@@ -14,7 +14,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-06;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-09;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
