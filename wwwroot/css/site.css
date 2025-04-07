@@ -856,6 +856,8 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0;
+    background-color: #fff;
 }
 
 .op img, .op p {
@@ -1680,5 +1682,37 @@ body
 /*Terminos y condiciones*/
 
 .titulo_terminos {
+    font-weight: bold;
+}
+
+
+
+
+
+/* Estilo de carrito 7/4 */
+.trash {
+    background-color: transparent;
+    border: 0;
+}
+
+.trash:hover {
+    cursor: pointer;
+}
+
+
+.trash_cont {
+    width: 35px;
+    height: auto;
+}
+
+.trash_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.empty_Cart {
     font-weight: bold;
 }

@@ -4,6 +4,7 @@ using Dapper;
 
 public class BD
 {
+    public static List<Producto> ListaCarrito = new List<Producto>();
     public static List<Producto> ListaProductos = new List<Producto>();
     public static List<Producto> ListaNotebooks = new List<Producto>();
     public static List<Producto> ListaPerifericos = new List<Producto>();
@@ -16,7 +17,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-09;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-08;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -226,6 +227,35 @@ public class BD
             ListaPago = db.Query<FormatoPago>(sql).ToList();
         }
         return ListaPago;
+    }
+
+    public static void LevantarCarrito() {
+
+    }
+    public static void AgregarProducto() {
+
+    }
+
+    public static void EliminarCarrito() {
+        
+    }
+    public static void SacarPrecio() {
+        
+    }
+    public static void SumarProducto() {
+        
+    }
+    public static void RestarProducto() {
+        
+    }
+    public static void EliminarProductosUni() {
+        
+    }
+    public static void EliminarUltimoProducto() {
+        
+    }
+    public static void EliminarProductos() {
+        
     }
 }
 
