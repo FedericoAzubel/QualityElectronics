@@ -177,7 +177,7 @@ public class HomeController : Controller
     }
 
 
-    //  public IActionResult MisCompras()
+    //  public IActionResult ComprasUsuario()
     // {
     //     var userJson = HttpContext.Session.GetString("user");
     //     var usuario  = Usuario.FromString(userJson);
