@@ -4,7 +4,8 @@ using Dapper;
 
 public class BD
 {
-    public static List<Producto> ListaCarrito = new List<Producto>();
+    public static ComprasUsuario Carrito;
+    public static List<DetalleProd> ListaProdsCart = new List<DetalleProd>();
     public static List<Producto> ListaProductos = new List<Producto>();
     public static List<Producto> ListaNotebooks = new List<Producto>();
     public static List<Producto> ListaPerifericos = new List<Producto>();
@@ -17,7 +18,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-08;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -229,33 +230,42 @@ public class BD
         return ListaPago;
     }
 
-    public static void LevantarCarrito() {
+    // Levantamos el objeto ComprasUsuario cuando el ComprasUsuario.Idsuario == IdUsuario (parámetro) y Terminado == 0;
+    public static ComprasUsuario LevantarCarrito(int IdUsuario)
+    {
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Compras_Usuario WHERE Compras_Usuario.IdUsuario = @pIdUsuario AND Compras_Usuario.Terminado = 0";
+            Carrito = db.QueryFirstOrDefault(sql, new { pIdUsuario = IdUsuario });
+        }
+        return Carrito;
+    }
 
-    }
-    public static void AgregarProducto() {
+    //Para que este objeto no sea null, debe haber productos en la tabla DetalleProd asociados al id correspondiente del objeto Compra.
+    // Por tanto cuando usuario agregue un producto al carrito, antes de que se agregue, deberá agregarse a la tabla ComprasUsuario un registro vacío que solo complete el Id al ser autonumérico.
 
+
+    //Método para ingresar un registro vacío
+    public static void InsertarCarritoVacio(int IdUsuario)
+    {
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO Compras_Usuario(FormatoPago, Domicilio, IdUsuario, PrecioTotal, Terminado) VALUES(NULL, NULL, @pIdUsuario, NULL, 0)";
+            db.Execute(sql, new{pIdUsuario = IdUsuario});
+        }
     }
 
-    public static void EliminarCarrito() {
-        
-    }
-    public static void SacarPrecio() {
-        
-    }
-    public static void SumarProducto() {
-        
-    }
-    public static void RestarProducto() {
-        
-    }
-    public static void EliminarProductosUni() {
-        
-    }
-    public static void EliminarUltimoProducto() {
-        
-    }
-    public static void EliminarProductos() {
-        
+
+    //Método para agregar un Producto
+    public static void AgregarProd(string NombreProd, int PrecioProd, int Cantidad, int IdCompra, string Foto)
+    {
+        int PrecioUnitario = Cantidad * PrecioProd;
+        using(SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "INSERT INTO DetalleProd(NombreProd, PrecioProd, Cantidad, PrecioUnitario, IdCompra, Foto) VALUES(@pNombreProd, @pPrecioProd, @pCantidad, @pPrecioUnitario, @pIdCompra, @pFoto)";
+            db.Execute(sql, new{pNombreProd = NombreProd, pPrecioProd = PrecioProd, pCantidad = Cantidad, pPrecioUnitario = PrecioUnitario, pIdCompra = IdCompra, pFoto = Foto});
+        }
+
     }
 }
 

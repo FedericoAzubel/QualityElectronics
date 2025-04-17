@@ -1,8 +1,9 @@
 public class ComprasUsuario
 {
-    int IdCompraUsuario {get; set;}
-    int IdFecha {get; set;}
-    int IdProducto {get; set;}
-    int IdCantidad {get; set;}
+    int IdCompra {get; set;}
+    string FormatoPago {get; set;}
+    string Domicilio {get; set;}
     int IdUsuario {get; set;}
+    int PrecioTotal {get; set;}
+    bool Terminado {get; set;}
 }
