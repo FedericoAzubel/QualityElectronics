@@ -5,6 +5,7 @@ using Dapper;
 public class BD
 {
     public static ComprasUsuario Carrito;
+    public static List<ComprasUsuario> ListaComprasUsuario = new List<ComprasUsuario>(); 
     public static List<DetalleProd> ListaProdsCart = new List<DetalleProd>();
     public static List<Producto> ListaProductos = new List<Producto>();
     public static List<Producto> ListaNotebooks = new List<Producto>();
@@ -18,7 +19,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-08;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto>  LevantarProductos()
@@ -121,6 +122,17 @@ public class BD
             ListaPreguntas = db.Query<Preguntas_Motivo>(sql, new {pIdUsuario = IdUsuario}).ToList();
         }
         return ListaPreguntas;
+    }
+
+    public static List<ComprasUsuario> LevantarComprasUsuario(int IdUsuario)
+    {
+        
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT PU.Contenido, MP.NombreMotivo FROM Preguntas_Usuario AS PU INNER JOIN  PreguntasDelUsuario AS PDL on PU.IdPregunta = PDL.IdPregunta INNER JOIN Motivo_Pregunta AS MP ON PDL.IdMotivo = MP.IdMotivo INNER JOIN Usuario AS U ON PDL.IdUsuario  = U.IdUsuario WHERE U.IdUsuario = @pIdUsuario;";  //falta modificar bd
+            ListaComprasUsuario = db.Query<ComprasUsuario>(sql, new {pIdUsuario = IdUsuario}).ToList();
+        }
+        return ListaComprasUsuario;
     }
 
 

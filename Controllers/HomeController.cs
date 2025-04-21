@@ -76,7 +76,6 @@ public class HomeController : Controller
         return View("CatalogoDeProductos");
     }
 
-
     public IActionResult Filtros1()
     {
         HttpContext.Session.Remove("ListaOpcion");
@@ -177,15 +176,15 @@ public class HomeController : Controller
     }
 
 
-    //  public IActionResult ComprasUsuario()
-    // {
-    //     var userJson = HttpContext.Session.GetString("user");
-    //     var usuario  = Usuario.FromString(userJson);
-    //     int IdUsuario = usuario.IdUsuario;
-    //     List<ComprasUsuarios> ListaComps = BD.LevantarCompras(IdUsuario);
-    //     ViewBag.ListaCompras = ListaComps;
-    //     return View();
-    // }
+     public IActionResult MisCompras()
+    {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario  = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        // List<ComprasUsuarios> ListaComps = BD.LevantarComprasUsuario(IdUsuario);
+        // ViewBag.ListaCompras = ListaComps;
+        return View();
+    }
 
     public IActionResult EnviarReseña(int Puntuacion, string Contenido)
     {
