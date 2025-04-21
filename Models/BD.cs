@@ -19,10 +19,10 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-08;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=A-PHZ2-CIDI-07;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
-    public static List<Producto>  LevantarProductos()
+    public static List<Producto> LevantarProductos()
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
@@ -33,7 +33,7 @@ public class BD
     }
 
     /*Este método levanta todos los prodcutos que sean Notebooks*/
-    public static List<Producto>  LevantarNotebooks()
+    public static List<Producto> LevantarNotebooks()
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
@@ -58,9 +58,9 @@ public class BD
     public static void LevantarTuCatalogo(int clas2, int clas3, List<int> opciones)
     {
         int clas1 = int.MinValue;
-        foreach(int opcion in opciones)
+        foreach (int opcion in opciones)
         {
-            if(opcion > clas1)
+            if (opcion > clas1)
             {
                 clas1 = opcion;
             }
@@ -68,31 +68,31 @@ public class BD
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Producto WHERE Clasificacion1 = @clasi1 AND Clasificacion2 = @clasi2 AND Clasificacion3 = @clasi3";
-            ListaTuCatalogo = db.Query<Producto>(sql, new{clasi1 = clas1, clasi2 = clas2, clasi3 = clas3}).ToList();
+            ListaTuCatalogo = db.Query<Producto>(sql, new { clasi1 = clas1, clasi2 = clas2, clasi3 = clas3 }).ToList();
         }
     }
 
     public static Usuario LevantarUsuarioPorMail(string email)
     {
         Usuario user;
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Usuario WHERE Email = @pemail";
-            user = db.QueryFirstOrDefault<Usuario>(sql, new {pemail = email});
+            user = db.QueryFirstOrDefault<Usuario>(sql, new { pemail = email });
         }
         return user;
     }
 
     public static void IngresarUsuario(string nombre, string apellido, string email, int tel, string contrasena)
     {
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "INSERT INTO Usuario(Nombre, Apellido, Email, Contrasena, Telefono) VALUES (@pNombre, @pApellido, @pEmail, @pContrasena, @pTelefono)";
-            db.Execute(sql, new{pNombre = nombre, pApellido = apellido, pEmail = email, pContrasena = contrasena, pTelefono = tel});
+            db.Execute(sql, new { pNombre = nombre, pApellido = apellido, pEmail = email, pContrasena = contrasena, pTelefono = tel });
         }
     }
 
-    public static List<Usuario>  LevantarUsuarios()
+    public static List<Usuario> LevantarUsuarios()
     {
         List<Usuario> ListaUsers;
         using (SqlConnection db = new SqlConnection(_connectionString))
@@ -105,21 +105,21 @@ public class BD
 
     public static void IngresarReseña(int IdProducto, int Puntuacion, string Contenido, int IdUsuario)
     {
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "INSERT INTO Reseñas(IdProducto, Puntuacion, Contenido, IdUsuario) VALUES (@pIdProducto, @pPuntuacion, @pContenido, @pIdUsuario)";
-            db.Execute(sql, new{pIdProducto = IdProducto, pPuntuacion = Puntuacion, pContenido = Contenido, pIdUsuario = IdUsuario});
+            db.Execute(sql, new { pIdProducto = IdProducto, pPuntuacion = Puntuacion, pContenido = Contenido, pIdUsuario = IdUsuario });
         }
     }
 
 
     public static List<Preguntas_Motivo> LevantarPreguntasUsuario(int IdUsuario)
     {
-        
+
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT PU.Contenido, MP.NombreMotivo FROM Preguntas_Usuario AS PU INNER JOIN  PreguntasDelUsuario AS PDL on PU.IdPregunta = PDL.IdPregunta INNER JOIN Motivo_Pregunta AS MP ON PDL.IdMotivo = MP.IdMotivo INNER JOIN Usuario AS U ON PDL.IdUsuario  = U.IdUsuario WHERE U.IdUsuario = @pIdUsuario;";
-            ListaPreguntas = db.Query<Preguntas_Motivo>(sql, new {pIdUsuario = IdUsuario}).ToList();
+            ListaPreguntas = db.Query<Preguntas_Motivo>(sql, new { pIdUsuario = IdUsuario }).ToList();
         }
         return ListaPreguntas;
     }
@@ -144,7 +144,7 @@ public class BD
             string sql = "SELECT IdMotivo FROM Motivo_Pregunta WHERE NombreMotivo = @pNombreMotivo";
             // Usar QueryFirstOrDefault para obtener un valor directamente, accediendo al campo de forma explícita
             var result = db.QueryFirstOrDefault(sql, new { pNombreMotivo = NombreMotivo });
-            
+
             // Verificar si se encontró el resultado y luego convertirlo a int
             if (result != null)
             {
@@ -162,14 +162,14 @@ public class BD
             int IdPregunta = db.ExecuteScalar<int>(sql, new { pContenido = Contenido });
 
             string sql2 = "INSERT INTO PreguntasDelUsuario (IdPregunta, IdMotivo, IdUsuario) VALUES (@pIdPregunta, @pIdMotivo, @pIdUsuario)";
-            db.Execute(sql2, new{pIdPregunta = IdPregunta, pIdMotivo = IdMotivo, pIdUsuario = IdUsuario});
+            db.Execute(sql2, new { pIdPregunta = IdPregunta, pIdMotivo = IdMotivo, pIdUsuario = IdUsuario });
         }
     }
 
     public static List<Motivo> LevantarMotivos()
     {
         List<Motivo> ListaMotivos = new List<Motivo>();
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Motivo_Pregunta";
             ListaMotivos = db.Query<Motivo>(sql).ToList();
@@ -182,17 +182,17 @@ public class BD
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "INSERT INTO DomiciliosUsuarios (nombreDom, NombreCalle, alturaCalle, codigoPostal, provincia, IdUsuario) VALUES (@pnombreDom, @pNombreCalle, @palturaCalle, @pcodigoPostal, @pprovincia, @pIdUsuario)";
-            db.Execute(sql, new{pnombreDom = nombreDom, pNombreCalle = NombreCalle, palturaCalle = alturaCalle, pcodigoPostal = codigoPostal, pprovincia = provincia, pIdUsuario = IdUsuario});
+            db.Execute(sql, new { pnombreDom = nombreDom, pNombreCalle = NombreCalle, palturaCalle = alturaCalle, pcodigoPostal = codigoPostal, pprovincia = provincia, pIdUsuario = IdUsuario });
         }
     }
 
     public static List<DomiciliosUsuarios> LevantarDomicilios(int IdUsuario)
     {
         List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM DomiciliosUsuarios WHERE IdUsuario = @pIdUsuario";
-            ListaDoms = db.Query<DomiciliosUsuarios>(sql, new{pIdUsuario = IdUsuario}).ToList();
+            ListaDoms = db.Query<DomiciliosUsuarios>(sql, new { pIdUsuario = IdUsuario }).ToList();
         }
         return ListaDoms;
     }
@@ -211,20 +211,20 @@ public class BD
     public static List<Seccion> LevantarSeccionesProd()
     {
         List<Seccion> ListaSeccion = new List<Seccion>();
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Seccion";
             ListaSeccion = db.Query<Seccion>(sql).ToList();
         }
         return ListaSeccion;
     }
-    
+
     public static List<Atributo> LevantarAtributoProd(int IdProducto)
     {
         List<Atributo> ListaAtributo = new List<Atributo>();
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql="SELECT * FROM Atributo WHERE IdProducto = @pIdProducto";
+            string sql = "SELECT * FROM Atributo WHERE IdProducto = @pIdProducto";
 
             ListaAtributo = db.Query<Atributo>(sql, new { pIdProducto = IdProducto }).ToList();
         }
@@ -234,7 +234,7 @@ public class BD
     public static List<FormatoPago> LevantarFormatosPago()
     {
         List<FormatoPago> ListaPago = new List<FormatoPago>();
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM FormatoDePago";
             ListaPago = db.Query<FormatoPago>(sql).ToList();
@@ -245,7 +245,7 @@ public class BD
     // Levantamos el objeto ComprasUsuario cuando el ComprasUsuario.Idsuario == IdUsuario (parámetro) y Terminado == 0;
     public static ComprasUsuario LevantarCarrito(int IdUsuario)
     {
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Compras_Usuario WHERE Compras_Usuario.IdUsuario = @pIdUsuario AND Compras_Usuario.Terminado = 0";
             Carrito = db.QueryFirstOrDefault(sql, new { pIdUsuario = IdUsuario });
@@ -260,10 +260,10 @@ public class BD
     //Método para ingresar un registro vacío
     public static void InsertarCarritoVacio(int IdUsuario)
     {
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "INSERT INTO Compras_Usuario(FormatoPago, Domicilio, IdUsuario, PrecioTotal, Terminado) VALUES(NULL, NULL, @pIdUsuario, NULL, 0)";
-            db.Execute(sql, new{pIdUsuario = IdUsuario});
+            db.Execute(sql, new { pIdUsuario = IdUsuario });
         }
     }
 
@@ -272,12 +272,76 @@ public class BD
     public static void AgregarProd(string NombreProd, int PrecioProd, int Cantidad, int IdCompra, string Foto)
     {
         int PrecioUnitario = Cantidad * PrecioProd;
-        using(SqlConnection db = new SqlConnection(_connectionString))
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "INSERT INTO DetalleProd(NombreProd, PrecioProd, Cantidad, PrecioUnitario, IdCompra, Foto) VALUES(@pNombreProd, @pPrecioProd, @pCantidad, @pPrecioUnitario, @pIdCompra, @pFoto)";
-            db.Execute(sql, new{pNombreProd = NombreProd, pPrecioProd = PrecioProd, pCantidad = Cantidad, pPrecioUnitario = PrecioUnitario, pIdCompra = IdCompra, pFoto = Foto});
+            db.Execute(sql, new { pNombreProd = NombreProd, pPrecioProd = PrecioProd, pCantidad = Cantidad, pPrecioUnitario = PrecioUnitario, pIdCompra = IdCompra, pFoto = Foto });
         }
 
     }
+
+
+
+    //Método para sumar
+    public static void SumarProd(int ID, int Cantidad, int Precio)
+    {
+        int nuevaCant = Cantidad + 1;
+        int PrecioUnitario = Precio * nuevaCant;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "UPDATE DetalleProd SET Cantidad = @pnuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
+            db.Execute(sql, new { pnuevaCantidad = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
+        }
+
+    }
+
+    //Método para restar
+    public static void RestarProd(int ID, int Cantidad, int Precio)
+    {
+        int nuevaCant = Cantidad - 1;
+        if (nuevaCant > 1)
+        {
+            int PrecioUnitario = Precio * nuevaCant;
+            using (SqlConnection db = new SqlConnection(_connectionString))
+            {
+                string sql = "UPDATE DetalleProd SET Cantidad = @pnuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
+                db.Execute(sql, new { pnuevaCantidad = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
+            }
+        }
+    }
+
+    //Método para borrar
+    public static void BorrarProducto(int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "DELETE * FROM DetalleProd WHERE IdDetalle = @pID";
+            db.Execute(sql, new { pID = ID });
+        }
+    }
+
+    // Borrar un carrito
+    public static void BorrarCarrito1(int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "DELETE * FROM Compras_Usuario WHERE IdCompra = @pID";
+            db.Execute(sql, new { pID = ID });
+        }
+    }
+
+
+
+    //Borrar productos asociados a un carrito
+    public static void BorrarCarrito2(int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "DELETE * FROM DetalleProd WHERE IdCompra = @pID";
+            db.Execute(sql, new { pID = ID });
+        }
+    }
+
+
 }
 
