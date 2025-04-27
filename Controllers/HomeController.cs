@@ -142,7 +142,7 @@ public class HomeController : Controller
         ViewBag.noIniciado = noIniciado;
 
         bool EnCarrito;
-        int? IdDetalle = BD.VerificarProdCarrito(deserializedProducto.IdProducto);
+        int? IdDetalle = BD.VerificarProdCarrito(deserializedProducto.IdProducto, usuario.IdUsuario);
         if (IdDetalle != null)
         {
             EnCarrito = true;
@@ -178,8 +178,11 @@ public class HomeController : Controller
         var userJson = HttpContext.Session.GetString("user");
         var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
-        // List<ComprasUsuarios> ListaComps = BD.LevantarComprasUsuario(IdUsuario);
-        // ViewBag.ListaCompras = ListaComps;
+        List<Compras_Usuario> HistorialCompras = BD.LevantarCompras(usuario.IdUsuario);
+        List<DetalleProd> DetalleHistorial = BD.LevantarProductosUsuario(usuario.IdUsuario);
+
+        ViewBag.HistorialCompras = HistorialCompras;
+        ViewBag.DetalleHistorial = DetalleHistorial;
         return View();
     }
 

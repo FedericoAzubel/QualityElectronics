@@ -387,12 +387,12 @@ public class BD
     }
 
     //Verificamos que un producto este en el carrito o no
-    public static int? VerificarProdCarrito(int ID)
+    public static int? VerificarProdCarrito(int ID, int IdUsuario)
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "SELECT IdDetalle FROM DetalleProd WHERE IdProd = @pID";
-            return db.QueryFirstOrDefault<int?>(sql, new { pID = ID });
+            string sql = "SELECT IdDetalle FROM DetalleProd INNER JOIN Compras_Usuario ON DetalleProd.IdCompra = Compras_Usuario.IdCompra WHERE DetalleProd.IdProd = @pID AND Compras_Usuario.IdUsuario = @pIdUsuario AND Compras_Usuario.Terminado = 0";
+            return db.QueryFirstOrDefault<int?>(sql, new { pID = ID, pIdUsuario = IdUsuario});
         }
     }
 
@@ -408,5 +408,32 @@ public class BD
         }
     }
 
+
+
+
+    // Métodos de Mis Compras
+
+
+    public static List<Compras_Usuario> LevantarCompras(int IdUsuario)
+    {
+        List<Compras_Usuario> HistorialCompras;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM Compras_Usuario WHERE Compras_Usuario.IdUsuario = @pIdUsuario AND Compras_Usuario.Terminado = 1";
+            HistorialCompras = db.Query<Compras_Usuario>(sql, new { pIdUsuario = IdUsuario }).ToList();
+        }
+        return HistorialCompras;
+    }
+
+    public static List<DetalleProd> LevantarProductosUsuario(int IdUsuario)
+    {
+        List<DetalleProd> DetalleHistorial;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM DetalleProd INNER JOIN Compras_Usuario ON DetalleProd.IdCompra = Compras_Usuario.IdCompra WHERE Compras_Usuario.IdUsuario = @pIdUsuario";
+            DetalleHistorial = db.Query<DetalleProd>(sql, new { pIdUsuario = IdUsuario }).ToList();
+        }
+        return DetalleHistorial;
+    }
 }
 

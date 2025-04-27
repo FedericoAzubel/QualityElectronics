@@ -1736,3 +1736,25 @@ body
 .empty_Cart {
     font-weight: bold;
 }
+
+
+/* Mis Compras */
+
+.lista_prods {
+    padding: 0;
+}
+
+.elemento_compra {
+    height: 40px;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.elemento_compra p {
+}

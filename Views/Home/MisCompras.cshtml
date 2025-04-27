@@ -10,48 +10,53 @@
 
         <div class="cuenta_option dom_agregado">
             <div class="nombre_sección2">
-                <p>Fecha
-                </p>
+                <p>Mis Compras</p>
                 <div class="linea"></div>
             </div>
             @{
-                if(ViewBag.ListaCompras.Count != 0)
+                if (ViewBag.HistorialCompras.Count != 0)
                 {
-                    foreach(Preguntas_Motivo pregunta in ViewBag.ListaCompras)    // chequear logica para solicitar a la bd.  
+                    int i = 1; // Inicializar fuera del foreach
+
+                    foreach (Compras_Usuario compras_Usuario in ViewBag.HistorialCompras)
                     {
+                        <div class="pregunta">
+                            <p class="motivo_preguntinia">Compra @i</p>
+                            <p class="motivo_preguntinia">Productos:</p>
+                            <ul class="lista_prods">
+                                @foreach (DetalleProd prod in ViewBag.DetalleHistorial)
+                                {
+                                    if (prod.IdCompra == compras_Usuario.IdCompra)
+                                    {
+                                        <li class="elemento_compra">
+                                            <p>@prod.NombreProd</p>
+                                            <p>X</p>
+                                            <p>@prod.Cantidad</p>
+                                            <p>$ @prod.PrecioUnitario</p>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                            <p class="motivo_preguntinia">Domicilio:</p>
+                            <p>@compras_Usuario.Domicilio</p>
+                            <p class="motivo_preguntinia">Formato de Pago:</p>
+                            <p>@compras_Usuario.FormatoPago</p>
+                            <p class="motivo_preguntinia">Total:</p>
+                            <p>$ @compras_Usuario.PrecioTotal</p>
 
-
-                        //que pueda devolver @fecha, @nombre, @cantidad, @precio final
-
-                        
-                        <div class="productos_carrito">
-                            <img class="img_carrito">
-                            <p class="nombre_carrito">Notebook N14X1010 Ram 4Gb SSD 128GB Noblex</p>
-                            <div class="suma_resta">
-                                <div class="cantidad">
-                                    <p>Cantidad:</p>
-                                    <p>X</p>
-                                </div>
-                                <div class="op op2">
-                                    <img src="../Images/add.png">
-                                </div>
-                            </div>
-                            <div class="precio_carrito">
-                                <p>Subtotal: </p>
-                                <p>1.000.000 $ARS</p>
-                                <img src="../Images/delete.png">
-                            </div>
                         </div>
+                        i++; // Incrementar
                     }
-                    <p>Total: </p>
-                    <p>1.000.000 $ARS</p>
                 }
                 else
                 {
                     <div class="cuenta_mensaje">
                         <p>No tienes compras hechas</p>
                     </div>
-                } 
+                }
             }
+
+
+        </div>
     </section>
 </section>
