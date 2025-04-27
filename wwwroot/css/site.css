@@ -730,7 +730,7 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
 }
 
 .cuenta_option {
@@ -833,6 +833,7 @@ textarea {
 .img_carrito {
     width: 110px;
     height: 95px;
+    object-fit: cover;
 }
 
 .nombre_carrito {
@@ -858,6 +859,11 @@ textarea {
     align-items: center;
     border: 0;
     background-color: #fff;
+}
+
+.img_op {
+    width: 20px;
+    height: 20px;
 }
 
 .op img, .op p {
@@ -967,12 +973,8 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.comprar_button h1 {
     color: #fff;
     font-weight: bold;
-    margin-top: 6px;
 }
 
 .total {
@@ -1064,6 +1066,24 @@ textarea {
     font-weight: bold;
     align-self: flex-end;
     margin-bottom: 5px;
+}
+
+.add_carrito2 {
+    width: 500px;
+    height: 60px;
+    background-color: #9b6193;
+    border-radius: 5px;
+    border: none;
+    font-size: 24px;
+    color: #ccc;
+    font-weight: bold;
+    align-self: flex-end;
+    margin-bottom: 5px;
+}
+
+.form_addCarrito {
+    width: 500px;
+    height: 60px;
 }
 
 .seccion2 {

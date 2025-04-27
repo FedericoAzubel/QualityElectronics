@@ -17,7 +17,32 @@
                     <div class="linea"></div>
                     <h1 class="precio_prodcuto">@ViewBag.Producto.Precio $ARS</h1>
                 </div>
-                <button class="add_carrito">SUMAR AL CARRITO</button>
+                @{
+                    if(ViewBag.noIniciado == true)
+                    {
+                        <button class="add_carrito add_carrito2">INICIE SESIÓN PARA CONTINUAR</button>
+                    }
+                    else
+                    {
+                        if(ViewBag.EnCarrito == true)
+                        {
+                            <button class="add_carrito add_carrito2">YA EN CARRITO</button>
+                        }
+                        else
+                        {
+                            <form class="form_addCarrito" action='@Url.Action("AgregarProd", "Home")' method="post">
+                                <input type="hidden" name="NombreProd" value="@ViewBag.Producto.Nombre">
+                                <input type="hidden" name="PrecioProd" value="@ViewBag.Producto.Precio">
+                                <input type="hidden" name="Foto" value="@ViewBag.Producto.Foto">
+                                <input type="hidden" name="IdProd" value="@ViewBag.Producto.IdProducto">
+                                <input type="submit" value="SUMAR AL CARRITO" class="add_carrito">
+                            </form>
+                        }
+                    }
+                    
+                }
+                
+                
             </div>
         </section>
 

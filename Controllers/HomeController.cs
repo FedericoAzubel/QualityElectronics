@@ -118,29 +118,6 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Carrito()
-    {
-        var userJson = HttpContext.Session.GetString("user");
-        var usuario = Usuario.FromString(userJson);
-        ViewBag.Usuario = usuario;
-        if (usuario == null)
-        {
-            ViewBag.Error = "Inicie sesión para continuar";
-            return View();
-        }
-        else
-        {
-            int IdUsuario = usuario.IdUsuario;
-            List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
-            ViewBag.ListaPago = ListaPago;
-            List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
-            ViewBag.ListaDoms = ListaDoms;
-
-            return View();
-        }
-
-
-    }
 
 
     public IActionResult Producto(string producto)
@@ -152,6 +129,26 @@ public class HomeController : Controller
         List<Atributo> ListaAtributo = BD.LevantarAtributoProd(IdProducto);
         ViewBag.ListaSeccion = ListaSeccion;
         ViewBag.ListaAtributo = ListaAtributo;
+
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario = Usuario.FromString(userJson);
+
+        bool noIniciado;
+        if (usuario == null)
+        {
+            noIniciado = true;
+        }
+        else { noIniciado = false; }
+        ViewBag.noIniciado = noIniciado;
+
+        bool EnCarrito;
+        int? IdDetalle = BD.VerificarProdCarrito(deserializedProducto.IdProducto);
+        if (IdDetalle != null)
+        {
+            EnCarrito = true;
+        }
+        else { EnCarrito = false; }
+        ViewBag.EnCarrito = EnCarrito;
         return View();
     }
 
@@ -176,10 +173,10 @@ public class HomeController : Controller
     }
 
 
-     public IActionResult MisCompras()
+    public IActionResult MisCompras()
     {
         var userJson = HttpContext.Session.GetString("user");
-        var usuario  = Usuario.FromString(userJson);
+        var usuario = Usuario.FromString(userJson);
         int IdUsuario = usuario.IdUsuario;
         // List<ComprasUsuarios> ListaComps = BD.LevantarComprasUsuario(IdUsuario);
         // ViewBag.ListaCompras = ListaComps;
@@ -216,4 +213,127 @@ public class HomeController : Controller
         BD.InsertarDomicilio(nombreDom, NombreCalle, alturaCalle, codigoPostal, provincia, IdUsuario);
         return RedirectToAction("MisDomicilios");
     }
+
+    // Aca van los Controllers del Carrito
+    public IActionResult Carrito()
+    {
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario = Usuario.FromString(userJson);
+        ViewBag.Usuario = usuario;
+        if (usuario == null)
+        {
+            ViewBag.Error = "Inicie sesión para continuar";
+            return View();
+        }
+        else
+        {
+            int IdUsuario = usuario.IdUsuario;
+            List<FormatoPago> ListaPago = BD.LevantarFormatosPago();
+            ViewBag.ListaPago = ListaPago;
+            List<DomiciliosUsuarios> ListaDoms = BD.LevantarDomicilios(IdUsuario);
+            ViewBag.ListaDoms = ListaDoms;
+
+            //Aca levantamos el objeto Carrito;
+
+            Compras_Usuario Carrito = BD.LevantarCarrito(IdUsuario);
+
+            if (Carrito != null)
+            {
+                List<DetalleProd> ListaProds = BD.LevantarProductosCarrito(Carrito.IdCompra);
+                ViewBag.ListaProds = ListaProds;
+                ViewBag.Carrito = Carrito;
+            }
+            else { 
+                ViewBag.Carrito = null;
+                ViewBag.ListaProds = null; 
+                return View();
+            }
+
+            int Total = BD.CalcularPrecioTotalCarrito(Carrito.IdCompra);
+            BD.ActualizarTotalCarrito(Total, Carrito.IdCompra);
+
+            return View();
+        }
+    }
+
+    public IActionResult AgregarProd(string NombreProd, int PrecioProd, string Foto, int IdProd)
+    {
+        int Cantidad = 1;
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario = Usuario.FromString(userJson);
+        int IdUsuario = usuario.IdUsuario;
+        Compras_Usuario Carrito = BD.LevantarCarrito(IdUsuario);
+        if (Carrito == null)
+        {
+            BD.InsertarCarritoVacio(IdUsuario);
+            Carrito = BD.LevantarCarrito(IdUsuario);
+        }
+        BD.AgregarProd(NombreProd, PrecioProd, Cantidad, Carrito.IdCompra, Foto, IdProd);
+
+        int total = BD.CalcularPrecioTotalCarrito(Carrito.IdCompra);
+        BD.ActualizarTotalCarrito(total, Carrito.IdCompra);
+        return RedirectToAction("Carrito");
+    }
+
+    public IActionResult SumarProd(int ID, int IdProd, int Cantidad)
+    {
+        int precioProd = BD.LevantarPrecioProd(IdProd);
+        BD.SumarProd(ID, Cantidad, precioProd);
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario = Usuario.FromString(userJson);
+        Compras_Usuario Carrito = BD.LevantarCarrito(usuario.IdUsuario);
+        int total = BD.CalcularPrecioTotalCarrito(Carrito.IdCompra);
+        BD.ActualizarTotalCarrito(total, Carrito.IdCompra);
+        return RedirectToAction("Carrito");
+    }
+    public IActionResult RestarProd(int ID, int IdProd, int Cantidad)
+    {
+        int precioProd = BD.LevantarPrecioProd(IdProd);
+        if (Cantidad > 1)
+        {
+            BD.RestarProd(ID, Cantidad, precioProd);
+            var userJson = HttpContext.Session.GetString("user");
+            var usuario = Usuario.FromString(userJson);
+            Compras_Usuario Carrito = BD.LevantarCarrito(usuario.IdUsuario);
+            int total = BD.CalcularPrecioTotalCarrito(Carrito.IdCompra);
+            BD.ActualizarTotalCarrito(total, Carrito.IdCompra);
+            return RedirectToAction("Carrito");
+        }
+        else
+        {
+            return EliminarProd(ID); // << Aca agregás el return
+        }
+    }
+    public IActionResult EliminarProd(int ID)
+    {
+        BD.BorrarProducto(ID);
+        var userJson = HttpContext.Session.GetString("user");
+        var usuario = Usuario.FromString(userJson);
+        Compras_Usuario Carrito = BD.LevantarCarrito(usuario.IdUsuario);
+        int total = BD.CalcularPrecioTotalCarrito(Carrito.IdCompra);
+        BD.ActualizarTotalCarrito(total, Carrito.IdCompra);
+        return RedirectToAction("Carrito");
+    }
+
+    public IActionResult VaciarCarrito(int ID)
+    {
+        BD.BorrarCarrito2(ID);
+        return RedirectToAction("Carrito");
+
+    }
+
+    [HttpPost]
+    public IActionResult TerminarCompra(string FormatoPago, string Domicilio, int ID)
+    {
+        if (string.IsNullOrEmpty(FormatoPago) || string.IsNullOrEmpty(Domicilio) || ID <= 0)
+        {
+            TempData["Error"] = "Debes completar todos los campos antes de finalizar la compra.";
+            return RedirectToAction("Carrito"); // o donde tengas que volver para corregir
+        }
+
+        BD.TerminarCompra(FormatoPago, Domicilio, ID);
+
+        return RedirectToAction("Index", "Home");
+    }
+
 }

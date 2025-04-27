@@ -2,7 +2,214 @@
 @{
     if(ViewBag.Usuario != null)
     {
-        <section class="seccion_1">
+        if(ViewBag.Carrito != null && ViewBag.ListaProds.Count != 0)
+        {
+            <section class="seccion_1">
+                    <div class="nombre_sección">
+                        <div class="img_nombre">
+                            <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
+                            <h1>Carrito de compras</h1>
+                        </div>
+                        <div class="linea"></div>
+                    </div>
+                    <form class="trash_container" method="post" action='@Url.Action("VaciarCarrito", "Home")'>
+                        <span class="empty_Cart">Vaciar Carrito</span>
+                        <input type="hidden" name="ID" value="@ViewBag.Carrito.IdCompra">
+                        <input type="image" class="trash_cont" src="../Images/delete.png" alt="Vaciar carrito">
+                    </form>
+                    <section class="cuenta_container">
+                        <div class="cuenta_option producto_option">
+                            <div class="nombre_sección2">
+                                <p>Productos</p>
+                                <div class="linea"></div>
+                            </div>
+                            @{
+                                foreach(DetalleProd prod in ViewBag.ListaProds)
+                                {
+                                    <div class="productos_carrito">
+                                        <img class="img_carrito" src="../Images/@prod.Foto">
+                                        <p class="nombre_carrito">@prod.NombreProd</p>
+                                        <div class="suma_resta">
+                                            <form class="op op1" action='@Url.Action("RestarProd", "Home")' method="post">
+                                                <input type="hidden" name="ID" value="@prod.IdDetalle">
+                                                <input type="hidden" name="IdProd" value="@prod.IdProd">
+                                                <input type="hidden" name="Cantidad" value="@prod.Cantidad">
+                                                <input type="image" class="img_op" src="../Images/remove.png" alt="Restar">
+                                            </form>
+                                            <div class="op">
+                                                <p>@prod.Cantidad</p>
+                                            </div>
+                                            <form class="op op2" action='@Url.Action("SumarProd", "Home")' method="post">
+                                                <input type="hidden" name="ID" value="@prod.IdDetalle">
+                                                <input type="hidden" name="IdProd" value="@prod.IdProd">
+                                                <input type="hidden" name="Cantidad" value="@prod.Cantidad">
+                                                <input type="image" class="img_op" src="../Images/add.png" alt="Sumar">
+                                            </form>
+                                        </div>
+                                        <div class="precio_carrito">
+                                            <p>$ @prod.PrecioUnitario</p>
+                                            <form class="trash" action='@Url.Action("EliminarProd", "Home")' method="post">
+                                                <input type="hidden" name="ID" value="@prod.IdDetalle">
+                                                <input type="image" class="trash_cont" src="../Images/delete.png" alt="Borrar producto">
+                                            </form>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </section>
+                    <form action='@Url.Action("TerminarCompra", "Home")' method="post" class="cuenta_container">
+                        <div class="cuenta_option">
+                            <div class="nombre_sección2">
+                                <p>Envío</p>
+                                <div class="linea"></div>
+                            </div>
+                            @{
+                                int contador1 = 0;
+                                if(ViewBag.ListaDoms.Count != 0)
+                                {
+                                    <div class="pregunta">
+                                        @foreach(DomiciliosUsuarios dom in ViewBag.ListaDoms)
+                                        {
+                                            <div class="input_radio">
+                                                <input type="radio" name="Domicilio" value="@dom.nombreDom" id="@contador1" required>
+                                                <label for="@contador1">@dom.nombreDom</label>
+                                            </div>
+                                            contador1++;
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="cuenta_mensaje">
+                                        <p>Agregá un nuevo punto de envío o retiro</p>
+                                        <a href='@Url.Action("MisDomicilios", "Home")'>desde acá</a>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                        <div class="cuenta_option producto_option">
+                            <div class="nombre_sección2">
+                                <p>Pago</p>
+                                <div class="linea"></div>
+                            </div>
+                            <div class="radio_container">
+                            @{
+                                int contador = 1;
+                                foreach(FormatoPago pago in ViewBag.ListaPago)
+                                {
+                                    <div class="input_radio">
+                                        <input type="radio" name="FormatoPago" value="@pago.Descripcion" id="@contador" required>
+                                        <label for="@contador">@pago.Descripcion</label>
+                                    </div>
+                                    contador++;
+                                }
+                            }
+                            </div>
+                        </div>
+
+                        <div class="terminos_condiciones_option">
+                            <div class="terminos">
+                                <input type="checkbox" required>
+                                <label>Al comprar, aceptas los </label>
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#terminosModal">términos y condiciones.</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade centrado" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="terminosModalLabel">Términos y Condiciones</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="titulo_terminos">
+                                                    1. Introducción
+                                                </p>
+                                                <p>
+                                                    Al acceder o realizar una compra en Quality Electronics, aceptas estos términos y condiciones. Si no estás de acuerdo, por favor, no utilices nuestros servicios.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    2. Precios y Métodos de Pago
+                                                </p>
+                                                <p>
+                                                    Los precios están en pesos e incluyen impuestos.
+                                                    Aceptamos pagos por Transferencia, MercadoPago, Tarjetas de Crédito y Débito. El Cliente debe proporcionar información de pago precisa.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    3. Proceso de Compra
+                                                </p>
+                                                <p>
+                                                    Al realizar un pedido, el Cliente recibirá una confirmación por correo electrónico. El contrato de venta será válido una vez procesado el pago.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    4. Envíos y Entregas
+                                                </p>
+                                                <p>
+                                                    Los productos se enviarán a la dirección proporcionada por el Cliente. El tiempo de entrega varía según la ubicación, y los costos de envío se calcularán durante el proceso de compra.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    5. Devoluciones y Reembolsos
+                                                </p>
+                                                <p>
+                                                    No aceptamos devoluciones de productos personalizados a menos que lleguen defectuosos. Si el producto está defectuoso o dañado, notifica a Quality Electronics dentro de 1 mes para gestionar el cambio o reembolso.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    6. Garantía
+                                                </p>
+                                                <p>
+                                                    Las computadoras armadas tienen 3 años de garantía contra defectos de fabricación. La garantía no cubre daños por mal uso o modificaciones no autorizadas.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    7. Responsabilidad
+                                                </p>
+                                                <p>
+                                                    Quality Electronics no será responsable por daños derivados del uso de nuestros productos. El Cliente es responsable de verificar la compatibilidad del producto con sus necesidades.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    8. Protección de Datos Personales
+                                                </p>
+                                                <p>
+                                                    Tratamos los datos personales del Cliente conforme a nuestra Política de Privacidad. Al comprar, el Cliente autoriza el uso de sus datos para procesar el pedido.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    9. Modificaciones
+                                                </p>
+                                                <p>
+                                                    Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios se aplicarán una vez publicados en el Sitio Web.
+                                                </p>
+                                                <p class="titulo_terminos">
+                                                    10. Contacto
+                                                </p>
+                                                <p>
+                                                    Para consultas, contáctanos a:
+                                                </p>
+                                                <p>
+                                                </p>
+                                                <p>
+                                                    Correo: qualityelectronics@gmail.com
+                                                    Teléfono: 1555685941
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comprar_container">
+                            <h1 class="total">Total: $ @ViewBag.Carrito.PrecioTotal</h1>
+                            <input type="hidden" name="ID" value="@ViewBag.Carrito.IdCompra">
+                            <input type="submit" value="COMPRAR" class="comprar_button">
+                        </div>
+                    </form>
+            </section>
+         }
+        else{ 
+             <section class="seccion_2">
                 <div class="nombre_sección">
                     <div class="img_nombre">
                         <button onclick="window.history.back()"><img src="../Images/chevron_left.png"></button>
@@ -10,191 +217,12 @@
                     </div>
                     <div class="linea"></div>
                 </div>
-                <div class="trash_container">
-                        <span class="empty_Cart">Vaciar Carrito</span>
-                        <button class="trash">
-                            <img class="trash_cont" src="../Images/delete.png">
-                        </button>
-                    </div>
-                <section class="cuenta_container">
-                    <div class="cuenta_option producto_option">
-                        <div class="nombre_sección2">
-                            <p>Productos</p>
-                            <div class="linea"></div>
-                        </div>
-                        
-                        <div class="productos_carrito">
-                            <img class="img_carrito">
-                            <p class="nombre_carrito">Notebook N14X1010 Ram 4Gb SSD 128GB Noblex</p>
-                            <div class="suma_resta">
-                                <button class="op op1">
-                                    <img src="../Images/remove.png">
-                                </button>
-                                <div class="op">
-                                    <p>X</p>
-                                </div>
-                                <button class="op op2">
-                                    <img src="../Images/add.png">
-                                </button>
-                            </div>
-                            <div class="precio_carrito">
-                                <p>1.000.000 $ARS</p>
-                                <button class="trash">
-                                    <img src="../Images/delete.png">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cuenta_option">
-                        <div class="nombre_sección2">
-                            <p>Envío</p>
-                            <div class="linea"></div>
-                        </div>
-                        @{
-                            int contador1 = 0;
-                            if(ViewBag.ListaDoms.Count != 0)
-                            {
-                                <div class="pregunta">
-                                    @foreach(DomiciliosUsuarios dom in ViewBag.ListaDoms)
-                                    {
-                                        <div class="input_radio">
-                                            <input type="radio" name="dom" value="@dom" id="@contador1">
-                                            <label for="@contador1">@dom.nombreDom</label>
-                                        </div>
-                                        contador1++;
-                                    }
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="cuenta_mensaje">
-                                    <p>Agregá un nuevo punto de envío o retiro</p>
-                                    <a href='@Url.Action("MisDomicilios", "Home")'>desde acá</a>
-                                </div>
-                            }
-                        }
-                    </div>
-
-                    <div class="cuenta_option producto_option">
-                        <div class="nombre_sección2">
-                            <p>Pago</p>
-                            <div class="linea"></div>
-                        </div>
-                        <div class="radio_container">
-                        @{
-                            int contador = 1;
-                            foreach(FormatoPago pago in ViewBag.ListaPago)
-                            {
-                                <div class="input_radio">
-                                    <input type="radio" name="pago" value="@pago.Descripcion" id="@contador">
-                                    <label for="@contador">@pago.Descripcion</label>
-                                </div>
-                                contador++;
-                            }
-                        }
-                        </div>
-                    </div>
-
-                    <div class="terminos_condiciones_option">
-                        <div class="terminos">
-                            <input type="checkbox">
-                            <label>Al comprar, aceptas los </label>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#terminosModal">términos y condiciones.</button>
-
-                            <!-- Modal -->
-                            <div class="modal fade centrado" id="terminosModal" tabindex="-1" aria-labelledby="terminosModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="terminosModalLabel">Términos y Condiciones</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p class="titulo_terminos">
-                                                1. Introducción
-                                            </p>
-                                            <p>
-                                                Al acceder o realizar una compra en Quality Electronics, aceptas estos términos y condiciones. Si no estás de acuerdo, por favor, no utilices nuestros servicios.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                2. Precios y Métodos de Pago
-                                            </p>
-                                            <p>
-                                                Los precios están en pesos e incluyen impuestos.
-                                                Aceptamos pagos por Transferencia, MercadoPago, Tarjetas de Crédito y Débito. El Cliente debe proporcionar información de pago precisa.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                3. Proceso de Compra
-                                            </p>
-                                            <p>
-                                                Al realizar un pedido, el Cliente recibirá una confirmación por correo electrónico. El contrato de venta será válido una vez procesado el pago.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                4. Envíos y Entregas
-                                            </p>
-                                            <p>
-                                                Los productos se enviarán a la dirección proporcionada por el Cliente. El tiempo de entrega varía según la ubicación, y los costos de envío se calcularán durante el proceso de compra.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                5. Devoluciones y Reembolsos
-                                            </p>
-                                            <p>
-                                                No aceptamos devoluciones de productos personalizados a menos que lleguen defectuosos. Si el producto está defectuoso o dañado, notifica a Quality Electronics dentro de 1 mes para gestionar el cambio o reembolso.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                6. Garantía
-                                            </p>
-                                            <p>
-                                                Las computadoras armadas tienen 3 años de garantía contra defectos de fabricación. La garantía no cubre daños por mal uso o modificaciones no autorizadas.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                7. Responsabilidad
-                                            </p>
-                                            <p>
-                                                Quality Electronics no será responsable por daños derivados del uso de nuestros productos. El Cliente es responsable de verificar la compatibilidad del producto con sus necesidades.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                8. Protección de Datos Personales
-                                            </p>
-                                            <p>
-                                                Tratamos los datos personales del Cliente conforme a nuestra Política de Privacidad. Al comprar, el Cliente autoriza el uso de sus datos para procesar el pedido.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                9. Modificaciones
-                                            </p>
-                                            <p>
-                                                Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios se aplicarán una vez publicados en el Sitio Web.
-                                            </p>
-                                            <p class="titulo_terminos">
-                                                10. Contacto
-                                            </p>
-                                            <p>
-                                                Para consultas, contáctanos a:
-                                            </p>
-                                            <p>
-                                            </p>
-                                            <p>
-                                                Correo: qualityelectronics@gmail.com
-                                                Teléfono: 1555685941
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comprar_container">
-                        <h1 class="total">Total: 1.000.000 $ARS</h1>
-                        <button class="comprar_button">
-                            <h1>COMPRAR</h1>
-                        </button>
-                    </div>
-                </section>
-        </section>
+                <div class="sesionMensaje_container">
+                    <p class="sesion_continuar">Agregue productos para continuar</p>
+                </div>
+            </section> 
+         } 
+        
     } else{
         <section class="seccion_2">
             <div class="nombre_sección">

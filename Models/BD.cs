@@ -4,8 +4,8 @@ using Dapper;
 
 public class BD
 {
-    public static ComprasUsuario Carrito;
-    public static List<ComprasUsuario> ListaComprasUsuario = new List<ComprasUsuario>(); 
+    public static Compras_Usuario Carrito;
+    public static List<Compras_Usuario> ListaComprasUsuario = new List<Compras_Usuario>();
     public static List<DetalleProd> ListaProdsCart = new List<DetalleProd>();
     public static List<Producto> ListaProductos = new List<Producto>();
     public static List<Producto> ListaNotebooks = new List<Producto>();
@@ -19,7 +19,7 @@ public class BD
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
-    private static string _connectionString = @"Server=A-PHZ2-CIDI-07;DataBase=QualityElectronics;Trusted_Connection=True;";
+    private static string _connectionString = @"Server=DESKTOP-I5A2R1G\SQLEXPRESS;DataBase=QualityElectronics;Trusted_Connection=True;";
 
     /*Este método levanta todos los prodcutos del catálogo*/
     public static List<Producto> LevantarProductos()
@@ -124,13 +124,13 @@ public class BD
         return ListaPreguntas;
     }
 
-    public static List<ComprasUsuario> LevantarComprasUsuario(int IdUsuario)
+    public static List<Compras_Usuario> LevantarComprasUsuario(int IdUsuario)
     {
-        
+
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT PU.Contenido, MP.NombreMotivo FROM Preguntas_Usuario AS PU INNER JOIN  PreguntasDelUsuario AS PDL on PU.IdPregunta = PDL.IdPregunta INNER JOIN Motivo_Pregunta AS MP ON PDL.IdMotivo = MP.IdMotivo INNER JOIN Usuario AS U ON PDL.IdUsuario  = U.IdUsuario WHERE U.IdUsuario = @pIdUsuario;";  //falta modificar bd
-            ListaComprasUsuario = db.Query<ComprasUsuario>(sql, new {pIdUsuario = IdUsuario}).ToList();
+            ListaComprasUsuario = db.Query<Compras_Usuario>(sql, new { pIdUsuario = IdUsuario }).ToList();
         }
         return ListaComprasUsuario;
     }
@@ -243,12 +243,12 @@ public class BD
     }
 
     // Levantamos el objeto ComprasUsuario cuando el ComprasUsuario.Idsuario == IdUsuario (parámetro) y Terminado == 0;
-    public static ComprasUsuario LevantarCarrito(int IdUsuario)
+    public static Compras_Usuario LevantarCarrito(int IdUsuario)
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
             string sql = "SELECT * FROM Compras_Usuario WHERE Compras_Usuario.IdUsuario = @pIdUsuario AND Compras_Usuario.Terminado = 0";
-            Carrito = db.QueryFirstOrDefault(sql, new { pIdUsuario = IdUsuario });
+            Carrito = db.QueryFirstOrDefault<Compras_Usuario>(sql, new { pIdUsuario = IdUsuario });
         }
         return Carrito;
     }
@@ -267,20 +267,40 @@ public class BD
         }
     }
 
+    public static List<DetalleProd> LevantarProductosCarrito(int ID)
+    {
+        List<DetalleProd> ListaProds = new List<DetalleProd>();
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT * FROM DetalleProd WHERE IdCompra = @pID";
+            ListaProds = db.Query<DetalleProd>(sql, new { pID = ID }).ToList();
+        }
+        return ListaProds;
+    }
+
 
     //Método para agregar un Producto
-    public static void AgregarProd(string NombreProd, int PrecioProd, int Cantidad, int IdCompra, string Foto)
+    public static void AgregarProd(string NombreProd, int PrecioProd, int Cantidad, int IdCompra, string Foto, int IdProd)
     {
         int PrecioUnitario = Cantidad * PrecioProd;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "INSERT INTO DetalleProd(NombreProd, PrecioProd, Cantidad, PrecioUnitario, IdCompra, Foto) VALUES(@pNombreProd, @pPrecioProd, @pCantidad, @pPrecioUnitario, @pIdCompra, @pFoto)";
-            db.Execute(sql, new { pNombreProd = NombreProd, pPrecioProd = PrecioProd, pCantidad = Cantidad, pPrecioUnitario = PrecioUnitario, pIdCompra = IdCompra, pFoto = Foto });
+            string sql = "INSERT INTO DetalleProd(NombreProd, PrecioProd, Cantidad, PrecioUnitario, IdCompra, Foto, IdProd) VALUES(@pNombreProd, @pPrecioProd, @pCantidad, @pPrecioUnitario, @pIdCompra, @pFoto, @pIdProd)";
+            db.Execute(sql, new { pNombreProd = NombreProd, pPrecioProd = PrecioProd, pCantidad = Cantidad, pPrecioUnitario = PrecioUnitario, pIdCompra = IdCompra, pFoto = Foto, pIdProd = IdProd });
         }
 
     }
-
-
+    // Método para agarrar el precio de un producto y en bas e a ese precio modificar el precio de un prod del carrito cuando se modifique su cantidad.
+    public static int LevantarPrecioProd(int ID)
+    {
+        int precioProd;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT Precio FROM Producto WHERE IdProducto = @pID";
+            precioProd = db.QueryFirstOrDefault<int>(sql, new { pID = ID });
+        }
+        return precioProd;
+    }
 
     //Método para sumar
     public static void SumarProd(int ID, int Cantidad, int Precio)
@@ -289,24 +309,21 @@ public class BD
         int PrecioUnitario = Precio * nuevaCant;
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "UPDATE DetalleProd SET Cantidad = @pnuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
-            db.Execute(sql, new { pnuevaCantidad = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
+            string sql = "UPDATE DetalleProd SET Cantidad = @pNuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
+            db.Execute(sql, new { pNuevaCant = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
         }
-
     }
 
     //Método para restar
     public static void RestarProd(int ID, int Cantidad, int Precio)
     {
         int nuevaCant = Cantidad - 1;
-        if (nuevaCant > 1)
+        int PrecioUnitario = Precio * nuevaCant;
+
+        using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            int PrecioUnitario = Precio * nuevaCant;
-            using (SqlConnection db = new SqlConnection(_connectionString))
-            {
-                string sql = "UPDATE DetalleProd SET Cantidad = @pnuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
-                db.Execute(sql, new { pnuevaCantidad = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
-            }
+            string sql = "UPDATE DetalleProd SET Cantidad = @pNuevaCant, PrecioUnitario = @pPrecioUnitario WHERE IdDetalle = @pID";
+            db.Execute(sql, new { pNuevaCant = nuevaCant, pPrecioUnitario = PrecioUnitario, pID = ID });
         }
     }
 
@@ -315,20 +332,22 @@ public class BD
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "DELETE * FROM DetalleProd WHERE IdDetalle = @pID";
+            string sql = "DELETE FROM DetalleProd WHERE IdDetalle = @pID";
             db.Execute(sql, new { pID = ID });
         }
     }
 
+
     // Borrar un carrito
-    public static void BorrarCarrito1(int ID)
-    {
-        using (SqlConnection db = new SqlConnection(_connectionString))
-        {
-            string sql = "DELETE * FROM Compras_Usuario WHERE IdCompra = @pID";
-            db.Execute(sql, new { pID = ID });
-        }
-    }
+    // ESTE CREO QUE NO LO VOY A USAR NUNCA
+    // public static void BorrarCarrito1(int ID)
+    // {
+    //     using (SqlConnection db = new SqlConnection(_connectionString))
+    //     {
+    //         string sql = "DELETE * FROM Compras_Usuario WHERE IdCompra = @pID";
+    //         db.Execute(sql, new { pID = ID });
+    //     }
+    // }
 
 
 
@@ -337,11 +356,57 @@ public class BD
     {
         using (SqlConnection db = new SqlConnection(_connectionString))
         {
-            string sql = "DELETE * FROM DetalleProd WHERE IdCompra = @pID";
+            string sql = "DELETE FROM DetalleProd WHERE IdCompra = @pID";
             db.Execute(sql, new { pID = ID });
         }
     }
 
+
+    //Método para sacar total
+
+    public static int CalcularPrecioTotalCarrito(int ID)
+    {
+        int total;
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT ISNULL(SUM(PrecioUnitario), 0) FROM DetalleProd WHERE IdCompra = @pID";
+            total = db.QueryFirstOrDefault<int>(sql, new { pID = ID });
+        }
+        return total;
+    }
+
+
+
+    public static void ActualizarTotalCarrito(int total, int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "UPDATE Compras_Usuario SET PrecioTotal = @ptotal WHERE IdCompra = @pID";
+            db.Execute(sql, new { ptotal = total, pID = ID });
+        }
+    }
+
+    //Verificamos que un producto este en el carrito o no
+    public static int? VerificarProdCarrito(int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "SELECT IdDetalle FROM DetalleProd WHERE IdProd = @pID";
+            return db.QueryFirstOrDefault<int?>(sql, new { pID = ID });
+        }
+    }
+
+
+    //Metodo para terminar compra
+
+    public static void TerminarCompra(string FormatoPago, string Domicilio, int ID)
+    {
+        using (SqlConnection db = new SqlConnection(_connectionString))
+        {
+            string sql = "UPDATE Compras_Usuario SET FormatoPago = @pFormatoPago, Domicilio = @pDomicilio, Terminado = 1  WHERE IdCompra = @pID";
+            db.Execute(sql, new { pFormatoPago = FormatoPago, pDomicilio = Domicilio, pID = ID });
+        }
+    }
 
 }
 

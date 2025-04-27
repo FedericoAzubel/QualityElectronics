@@ -1,10 +1,11 @@
 public class DetalleProd
 {
-    int IdDetalle {get; set;}
-    string NombreProd {get; set;}
-    int PrecioProd {get; set;}
-    int Cantidad {get; set;}
-    int PrecioUnitario  {get; set;}
-    int IdCompra  {get; set;}
-    string Foto {get; set;}
+    public int IdDetalle {get; set;}
+    public string NombreProd {get; set;}
+    public int PrecioProd {get; set;}
+    public int Cantidad {get; set;}
+    public int PrecioUnitario  {get; set;}
+    public int IdCompra  {get; set;}
+    public string Foto {get; set;}
+    public int IdProd {get; set;}
 }
