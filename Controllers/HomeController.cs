@@ -338,5 +338,6 @@ public class HomeController : Controller
 
         return RedirectToAction("Index", "Home");
     }
-
 }
+
+// Bye bye Quality
