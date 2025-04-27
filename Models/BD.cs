@@ -14,8 +14,6 @@ public class BD
     public static List<Preguntas_Motivo> ListaPreguntas = new List<Preguntas_Motivo>();
     public static List<Motivo> ListaMotivos = new List<Motivo>();
     public static List<DomiciliosUsuarios> ListaDoms = new List<DomiciliosUsuarios>();
-
-    // public static List<ComprasUsuarios> ListaComps = new List<ComprasUsuarios>();   //Chequear como es en BD, faltaria crear ese historial de compras y desde ahi verlo como la view pasada
     public static List<Seccion> ListaSeccion = new List<Seccion>();
     public static List<Atributo> ListaAtributo = new List<Atributo>();
 
@@ -197,17 +195,6 @@ public class BD
         return ListaDoms;
     }
 
-    // public static List<ComprasUsuarios> LevantarCompras (int IdUsuario)
-    // {
-    //     List<ComprasUsuarios> ListaComps = new List<ComprasUsuarios>();
-    //     using(SqlConnection db = new SqlConnection(_connectionString))
-    //     {
-    //         string sql = "SELECT * FROM ComprasUsuarios WHERE IdUsuario = @pIdUsuario";
-    //         ListaComps = db.Query<ComprasUsuarios>(sql, new{pIdUsuario = IdUsuario}).ToList();
-    //     }
-    //     return ListaComps;
-    // }
-
     public static List<Seccion> LevantarSeccionesProd()
     {
         List<Seccion> ListaSeccion = new List<Seccion>();
@@ -337,20 +324,6 @@ public class BD
         }
     }
 
-
-    // Borrar un carrito
-    // ESTE CREO QUE NO LO VOY A USAR NUNCA
-    // public static void BorrarCarrito1(int ID)
-    // {
-    //     using (SqlConnection db = new SqlConnection(_connectionString))
-    //     {
-    //         string sql = "DELETE * FROM Compras_Usuario WHERE IdCompra = @pID";
-    //         db.Execute(sql, new { pID = ID });
-    //     }
-    // }
-
-
-
     //Borrar productos asociados a un carrito
     public static void BorrarCarrito2(int ID)
     {
@@ -407,12 +380,8 @@ public class BD
             db.Execute(sql, new { pFormatoPago = FormatoPago, pDomicilio = Domicilio, pID = ID });
         }
     }
-
-
-
-
+    
     // Métodos de Mis Compras
-
 
     public static List<Compras_Usuario> LevantarCompras(int IdUsuario)
     {
@@ -436,5 +405,3 @@ public class BD
         return DetalleHistorial;
     }
 }
-
-// Bye bye Quality
