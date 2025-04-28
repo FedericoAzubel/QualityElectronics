@@ -137,9 +137,15 @@ public class HomeController : Controller
         if (usuario == null)
         {
             noIniciado = true;
+            ViewBag.noIniciado = noIniciado;
+            return View();
         }
-        else { noIniciado = false; }
-        ViewBag.noIniciado = noIniciado;
+        else { 
+            noIniciado = false; 
+            ViewBag.noIniciado = noIniciado;
+            return View();
+        }
+        
 
         bool EnCarrito;
         int? IdDetalle = BD.VerificarProdCarrito(deserializedProducto.IdProducto, usuario.IdUsuario);
